@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Christmas Episodes</key>
+	<dict>
+		<key>How I Met Your Mother</key>
+		<array>
+			<array>
+				<string>How Lily Stole Christmas</string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+			</array>
+		</array>
+	</dict>
+</dict>
+</plist>

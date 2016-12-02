@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FT7-qH-b2R">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--My Media-->
+        <scene sceneID="F4X-iy-ykQ">
+            <objects>
+                <tableViewController id="9Zl-Ss-JCr" customClass="MyMediaTableViewController" customModule="TVPlaylists" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="0i0-vF-ClG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaylistCell" rowHeight="150" id="SAp-aS-DJ8" customClass="PlayListTableViewCell" customModule="TVPlaylists" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SAp-aS-DJ8" id="vJa-1U-NHR">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROq-F5-HLn">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="9Zl-Ss-JCr" id="MQ4-kx-i24"/>
+                                            </connections>
+                                        </scrollView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ROq-F5-HLn" firstAttribute="top" secondItem="vJa-1U-NHR" secondAttribute="top" id="0bG-c9-Bu1"/>
+                                        <constraint firstItem="ROq-F5-HLn" firstAttribute="height" secondItem="vJa-1U-NHR" secondAttribute="height" id="IOa-aC-o9S"/>
+                                        <constraint firstAttribute="trailing" secondItem="ROq-F5-HLn" secondAttribute="trailing" id="hOE-DO-aD2"/>
+                                        <constraint firstItem="ROq-F5-HLn" firstAttribute="leading" secondItem="vJa-1U-NHR" secondAttribute="leading" id="qWY-hT-L5R"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="scrollMenu" destination="ROq-F5-HLn" id="0Sb-In-iyh"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="9Zl-Ss-JCr" id="Ltx-eB-0bx"/>
+                            <outlet property="delegate" destination="9Zl-Ss-JCr" id="X6g-ZC-tXk"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="My Media" id="xFI-LN-acd"/>
+                    <connections>
+                        <outlet property="mediaTableView" destination="0i0-vF-ClG" id="DmK-bq-LOt"/>
+                        <outlet property="tableView" destination="0i0-vF-ClG" id="19M-Qh-ueK"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kSH-9v-BzL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1020" y="142.57871064467767"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ngu-WN-RCY">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FT7-qH-b2R" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SK0-6M-NXO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="9Zl-Ss-JCr" kind="relationship" relationship="rootViewController" id="a0K-eQ-IzL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tRW-tW-JL9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="80.799999999999997" y="142.57871064467767"/>
+        </scene>
+    </scenes>
+</document>

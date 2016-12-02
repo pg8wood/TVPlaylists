@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Favorites</key>
+	<dict>
+		<key>Dexter</key>
+		<array>
+			<array>
+				<string>Pilot</string>
+			</array>
+		</array>
+		<key>Black Mirror</key>
+		<array>
+			<array>
+				<string>Pilot</string>
+			</array>
+		</array>
+		<key>Stranger Things</key>
+		<array>
+			<array>
+				<string>Pilot</string>
+			</array>
+		</array>
+		<key>Better Call Saul</key>
+		<array>
+			<array>
+				<string>Pilot</string>
+			</array>
+		</array>
+		<key>The Walking Dead</key>
+		<array>
+			<array>
+				<string>Pilot</string>
+			</array>
+		</array>
+		<key>Futurama</key>
+		<array>
+			<array>
+				<string>Pilot</string>
+			</array>
+		</array>
+	</dict>
+	<key>Christmas Episodes</key>
+	<dict>
+		<key>How I Met Your Mother</key>
+		<array>
+			<array>
+				<string>How Lily Stole Christmas</string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+			</array>
+		</array>
+		<key>Friends</key>
+		<array>
+			<array>
+				<string>The One with the Holiday Armadillo</string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+			</array>
+		</array>
+		<key>Bob&apos;s Burgers</key>
+		<array>
+			<array>
+				<string>Christmas in the Car</string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+			</array>
+		</array>
+		<key>American Dad!</key>
+		<array>
+			<array>
+				<string>The Best Christmas Story Never Told</string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+				<string></string>
+			</array>
+		</array>
+	</dict>
+</dict>
+</plist>
