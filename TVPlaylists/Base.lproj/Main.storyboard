@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,21 +14,21 @@
         <scene sceneID="F4X-iy-ykQ">
             <objects>
                 <tableViewController id="9Zl-Ss-JCr" customClass="MyMediaTableViewController" customModule="TVPlaylists" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="0i0-vF-ClG">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="150" sectionHeaderHeight="18" sectionFooterHeight="18" id="0i0-vF-ClG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PlaylistCell" rowHeight="150" id="SAp-aS-DJ8" customClass="PlayListTableViewCell" customModule="TVPlaylists" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SAp-aS-DJ8" id="vJa-1U-NHR">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROq-F5-HLn">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <connections>
                                                 <outlet property="delegate" destination="9Zl-Ss-JCr" id="MQ4-kx-i24"/>
                                             </connections>
@@ -40,6 +41,8 @@
                                         <constraint firstItem="ROq-F5-HLn" firstAttribute="leading" secondItem="vJa-1U-NHR" secondAttribute="leading" id="qWY-hT-L5R"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="scrollMenu" destination="ROq-F5-HLn" id="0Sb-In-iyh"/>
                                 </connections>
@@ -54,11 +57,113 @@
                     <connections>
                         <outlet property="mediaTableView" destination="0i0-vF-ClG" id="DmK-bq-LOt"/>
                         <outlet property="tableView" destination="0i0-vF-ClG" id="19M-Qh-ueK"/>
+                        <segue destination="gzn-iE-6QA" kind="show" identifier="showEpisodes" id="vaU-wg-gph"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kSH-9v-BzL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1020" y="142.57871064467767"/>
+        </scene>
+        <!--Playlist Name - Show Title-->
+        <scene sceneID="sdh-sV-wZZ">
+            <objects>
+                <viewController id="gzn-iE-6QA" customClass="EpisodesViewController" customModule="TVPlaylists" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fo6-N7-gxs"/>
+                        <viewControllerLayoutGuide type="bottom" id="U4s-Et-7qs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UvW-My-eVA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mwH-xf-Epz">
+                                <rect key="frame" x="112" y="72" width="150" height="198"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="148" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="hbO-eb-Wf5">
+                                <rect key="frame" x="16" y="277" width="343" height="370"/>
+                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="370" id="4YB-dR-4ar"/>
+                                </constraints>
+                                <color key="sectionIndexBackgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="episodeCell" rowHeight="150" id="Spn-TZ-q3y" customClass="EpisodeTableViewCell" customModule="TVPlaylists" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="56" width="343" height="150"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Spn-TZ-q3y" id="jVR-4W-hvm">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="149"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOc-y5-9ka">
+                                                    <rect key="frame" x="8" y="0.0" width="327" height="83.5"/>
+                                                    <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <string key="text">Ted almost ruins Christmas for everyone when, still carrying around anger toward Lily, he calls her a horribly disgusting name. Robin tends to Barney while he has a cold.</string>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="Mqo-Ax-1vC">
+                                                    <rect key="frame" x="8" y="91.5" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="jHk-zP-23W"/>
+                                                        <constraint firstAttribute="height" constant="30" id="zNo-bO-oPb"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4pC-wl-b8b">
+                                                    <rect key="frame" x="46" y="91.5" width="69" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="69" id="9pV-Fc-4hp"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="qOc-y5-9ka" firstAttribute="leading" secondItem="Mqo-Ax-1vC" secondAttribute="leading" id="7Nf-ak-Or1"/>
+                                                <constraint firstItem="Mqo-Ax-1vC" firstAttribute="top" secondItem="qOc-y5-9ka" secondAttribute="bottom" constant="8" symbolic="YES" id="A2t-nd-fEk"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Mqo-Ax-1vC" secondAttribute="bottom" constant="20" id="Bja-93-gWJ"/>
+                                                <constraint firstItem="4pC-wl-b8b" firstAttribute="leading" secondItem="Mqo-Ax-1vC" secondAttribute="trailing" constant="8" symbolic="YES" id="GYQ-oa-39X"/>
+                                                <constraint firstItem="Mqo-Ax-1vC" firstAttribute="top" secondItem="4pC-wl-b8b" secondAttribute="top" id="OwA-BY-mP1"/>
+                                                <constraint firstItem="qOc-y5-9ka" firstAttribute="leading" secondItem="jVR-4W-hvm" secondAttribute="leadingMargin" id="PWz-Ir-gsg"/>
+                                                <constraint firstItem="qOc-y5-9ka" firstAttribute="trailing" secondItem="jVR-4W-hvm" secondAttribute="trailingMargin" id="cFh-UE-Z3X"/>
+                                                <constraint firstItem="qOc-y5-9ka" firstAttribute="top" secondItem="jVR-4W-hvm" secondAttribute="top" id="ctO-iW-ad8"/>
+                                                <constraint firstItem="Mqo-Ax-1vC" firstAttribute="bottom" secondItem="4pC-wl-b8b" secondAttribute="bottom" id="hYL-Lm-x13"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="episodeRatingLabel" destination="4pC-wl-b8b" id="kTJ-Jw-tSO"/>
+                                            <outlet property="episodeTextView" destination="qOc-y5-9ka" id="ac0-YG-1dw"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="gzn-iE-6QA" id="8T0-Hw-RlP"/>
+                                    <outlet property="delegate" destination="gzn-iE-6QA" id="xvv-c6-JG9"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="top" secondItem="mwH-xf-Epz" secondAttribute="bottom" constant="7" id="5zF-DY-cLL"/>
+                            <constraint firstAttribute="bottom" secondItem="hbO-eb-Wf5" secondAttribute="bottom" constant="20" symbolic="YES" id="CQZ-pI-Zhb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mwH-xf-Epz" secondAttribute="trailing" constant="97" id="Dgy-Kp-kzm"/>
+                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="centerX" secondItem="mwH-xf-Epz" secondAttribute="centerX" id="Igi-fi-h77"/>
+                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="leading" secondItem="UvW-My-eVA" secondAttribute="leadingMargin" id="gOj-u1-amV"/>
+                            <constraint firstItem="mwH-xf-Epz" firstAttribute="leading" secondItem="UvW-My-eVA" secondAttribute="leadingMargin" constant="96" id="vQl-cc-7Zx"/>
+                            <constraint firstItem="mwH-xf-Epz" firstAttribute="top" secondItem="fo6-N7-gxs" secondAttribute="bottom" constant="8" id="yMQ-4c-Bbq"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Playlist Name - Show Title" id="cE9-ez-xdP"/>
+                    <connections>
+                        <outlet property="episodesTableView" destination="hbO-eb-Wf5" id="9PM-bX-fXr"/>
+                        <outlet property="posterImageView" destination="mwH-xf-Epz" id="mLF-Yn-Lg8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RVN-Dk-W2i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2133.5999999999999" y="-261.31934032983509"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ngu-WN-RCY">
@@ -79,4 +184,7 @@
             <point key="canvasLocation" x="80.799999999999997" y="142.57871064467767"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="star" width="512" height="512"/>
+    </resources>
 </document>

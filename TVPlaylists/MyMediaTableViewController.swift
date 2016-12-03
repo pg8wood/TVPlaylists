@@ -22,6 +22,7 @@ class MyMediaTableViewController: UITableViewController {
     var playlists = [String]()
     var shows = [String]()
     
+    var dataToPass: [Any] = [0, 0, 0]
     
     
     /*
@@ -32,7 +33,7 @@ class MyMediaTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Set up the Edit button the left side of the navigation bar to enable editing of the table view rows
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
@@ -120,6 +121,8 @@ class MyMediaTableViewController: UITableViewController {
             // button height = kScrollMenuHeight points
             let imageWidth: CGFloat = 80.0
             
+            scrollMenuButton.setTitle(showNamesInPlaylist[i], for: UIControlState())
+            
             scrollMenuButton.frame = CGRect(x: 0.0, y: 0.0, width: imageWidth + 20.0, height: kScrollMenuHeight)
             
             // Set the button image to be the auto maker's logo
@@ -133,7 +136,7 @@ class MyMediaTableViewController: UITableViewController {
             
             // TODO
             // Set the button to invoke the buttonPressed: method when the user taps it
-            //scrollMenuButton.addTarget(self, action: #selector(Autos4ViewController.buttonPressed(_:)), for: .touchUpInside)
+            scrollMenuButton.addTarget(self, action: #selector(MyMediaTableViewController.showButtonPressed(_:)), for: .touchUpInside)
             
             // Add the constructed button to the list of buttons
             listOfMenuButtons.append(scrollMenuButton)
@@ -177,6 +180,14 @@ class MyMediaTableViewController: UITableViewController {
         return cell
     }
     
+    // Format the headerView and its label
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        let headerView = view as! UITableViewHeaderFooterView
+        headerView.textLabel?.textColor = UIColor.white
+        headerView.backgroundView!.backgroundColor = UIColor.clear
+    }
+    
     
     //-----------------------------
     // Set Title for Section Header
@@ -186,6 +197,51 @@ class MyMediaTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String {
         
         return playlists[section]
+    }
+    
+    /**
+     * MARK: - Show button pressed
+     */
+    func showButtonPressed(_ sender: UIButton) {
+        
+        let selectedShowTitle = sender.title(for: UIControlState())
+        
+        // ---------------------------------------------------------
+        // Determine which playlist the selected button is a part of
+        // ---------------------------------------------------------
+        let button = sender 
+        let superView = button.superview!
+        let buttonCell = superView.superview?.superview! as! PlayListTableViewCell
+        let indexPath = mediaTableView.indexPath(for: buttonCell)
+        let selectedSection = indexPath!.section
+        let selectedPlaylist = playlists[selectedSection]
+        
+        // Get the show data
+        let selectedShowData = (applicationDelegate.dict_PlaylistName_MediaName[selectedPlaylist] as! NSMutableDictionary)[selectedShowTitle!]
+        
+        // Prepare the data to pass
+        // dataToPass[0] = playlistName
+        // dataToPass[1] = showName
+        // dataToPass[2] = selectedShowData
+        dataToPass[0] = selectedPlaylist
+        dataToPass[1] = selectedShowTitle!
+        dataToPass[2] = selectedShowData!
+
+        performSegue(withIdentifier: "showEpisodes", sender: self)
+    }
+    
+    
+    /**
+     * MARK: - Prepare for segue
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showEpisodes" {
+            
+            // Pass the data to the downstream ViewController
+            let episodesViewController: EpisodesViewController = segue.destination as! EpisodesViewController
+            episodesViewController.dataPassed = dataToPass
+        }
     }
 
 }

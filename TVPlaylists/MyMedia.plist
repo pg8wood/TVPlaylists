@@ -7,37 +7,50 @@
 		<key>Dexter</key>
 		<array>
 			<array>
-				<string>Pilot</string>
+				<string>Dexter (Pilot)</string>
+				<string>Dexter takes part in the investigation of a serial killer who drains his victims of blood. He also kills two criminals, and his romantic relationship may be going to the next level.</string>
+				<string>8.8</string>
 			</array>
 		</array>
 		<key>Black Mirror</key>
 		<array>
 			<array>
-				<string>Pilot</string>
+				<string>Nosedive</string>
+				<string>In a future entirely controlled by how people evaluate others on social media, a girl is trying to keep her &quot;score&quot; high while preparing for her oldest childhood friend&apos;s wedding.</string>
+				<string>8.3</string>
 			</array>
 		</array>
 		<key>Stranger Things</key>
 		<array>
 			<array>
-				<string>Pilot</string>
+				<string>Chapter One: The Vanishing of Will Byers</string>
+				<string>In a small Indiana town, the disappearance of a young boy sparks a police investigation.</string>
+				<string>8.6</string>
 			</array>
 		</array>
 		<key>Better Call Saul</key>
 		<array>
 			<array>
-				<string>Pilot</string>
+				<string>Uno</string>
+				<string>Jimmy tries an unconventional method for pursuing potential clients after inspiration strikes.
+</string>
+				<string>8.7</string>
 			</array>
 		</array>
 		<key>The Walking Dead</key>
 		<array>
 			<array>
-				<string>Pilot</string>
+				<string>Days Gone Bye</string>
+				<string>After being shot, Deputy Sheriff Rick Grimes awakes to find the world overrun by the undead.</string>
+				<string>9.2</string>
 			</array>
 		</array>
 		<key>Futurama</key>
 		<array>
 			<array>
-				<string>Pilot</string>
+				<string>Space Pilot 3000</string>
+				<string>A down-on-his-luck pizza delivery guy is accidentally frozen on New Year&apos;s Eve 1999, and wakes up in 2999.</string>
+				<string>8.7</string>
 			</array>
 		</array>
 	</dict>
@@ -47,44 +60,37 @@
 		<array>
 			<array>
 				<string>How Lily Stole Christmas</string>
-				<string></string>
-				<string></string>
-				<string></string>
-				<string></string>
-				<string></string>
+				<string>Ted almost ruins Christmas for everyone when, still carrying around anger toward Lily, he calls her a horribly disgusting name. Robin tends to Barney while he has a cold.</string>
+				<string>7.5</string>
+			</array>
+			<array>
+				<string>The Final Page (1)</string>
+				<string>Robin takes steps to have Patrice fired from WWN, while Marshall puts a jinx on Barney. Later, Ted invites his architecture professor to the dedication of the GNB building, and Marshall and Lily bump into an oddball acquaintance from college.</string>
+				<string>5.0</string>
 			</array>
 		</array>
 		<key>Friends</key>
 		<array>
 			<array>
 				<string>The One with the Holiday Armadillo</string>
-				<string></string>
-				<string></string>
-				<string></string>
-				<string></string>
-				<string></string>
+				<string>Ross wants to introduce Ben to Chanukah. In order to entice Rachel to move back into their refurbished apartment, Pheobe must drive a wedge between Rachel and current roomie Joey.</string>
+				<string>8.6</string>
 			</array>
 		</array>
 		<key>Bob&apos;s Burgers</key>
 		<array>
 			<array>
 				<string>Christmas in the Car</string>
-				<string></string>
-				<string></string>
-				<string></string>
-				<string></string>
-				<string></string>
+				<string>After Linda accidentally kills the family tree, the Belchers must go out on Christmas Eve to find a new one. But when Bob cuts off a giant candy cane truck, they are forced to outrun the madman driver (homage to the 1971 movie &quot;Duel&quot;) and spend the entire night together in the car. Back at the Belcher home, Bob&apos;s friend, Teddy, accidentally gets stuck in the kids&apos; Santa trap.</string>
+				<string>8.2</string>
 			</array>
 		</array>
 		<key>American Dad!</key>
 		<array>
 			<array>
 				<string>The Best Christmas Story Never Told</string>
-				<string></string>
-				<string></string>
-				<string></string>
-				<string></string>
-				<string></string>
+				<string>Stan goes to the past to keep Jane Fonda from ruining Christmas, but he winds up creating an alternate future where the United States has been taken over by the Soviet Union.</string>
+				<string>8.1</string>
 			</array>
 		</array>
 	</dict>
