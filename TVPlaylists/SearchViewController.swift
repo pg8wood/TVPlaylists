@@ -190,7 +190,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         else if section == 1 {
             return localSearchResults.count
         } else {
-            return webSearchResults.count
+            return webSearchResults.count > 0 ? webSearchResults.count : 1
         }
     }
     
@@ -263,7 +263,18 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // Cell is a web results data cell
             cell = tableView.dequeueReusableCell(withIdentifier: "resultCell")!
             
-            // TODO populate cell with data
+            // If the user hasn't started the web query, give them a hint
+            if webSearchResults.count == 0 {
+                
+                if searchResultsController.isActive {
+                    cell.textLabel?.text = "Tap 'Search' to search the web"
+                } else {
+                    cell.textLabel?.text = ""
+                }
+                
+                cell.detailTextLabel?.text = ""
+                cell.imageView?.image = nil
+            }
         }
         
         // Disable selection highlighting for the cells
