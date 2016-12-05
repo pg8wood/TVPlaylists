@@ -20,6 +20,7 @@
 		B88007BD1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007BC1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift */; };
 		B88007BF1DF37848001C7CF5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007BE1DF37848001C7CF5 /* SearchViewController.swift */; };
 		B88007C11DF4C897001C7CF5 /* SearchFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */; };
+		B88007C71DF56874001C7CF5 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007C61DF56874001C7CF5 /* SearchResultTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		B88007BC1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeTableViewCell.swift; sourceTree = "<group>"; };
 		B88007BE1DF37848001C7CF5 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFilterTableViewCell.swift; sourceTree = "<group>"; };
+		B88007C61DF56874001C7CF5 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				B88007BC1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift */,
 				B88007BE1DF37848001C7CF5 /* SearchViewController.swift */,
 				B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */,
+				B88007C61DF56874001C7CF5 /* SearchResultTableViewCell.swift */,
 				B84D39541DE8CC6B0098F444 /* Main.storyboard */,
 				B84D39571DE8CC6B0098F444 /* Assets.xcassets */,
 				B84D39591DE8CC6B0098F444 /* LaunchScreen.storyboard */,
@@ -283,6 +286,7 @@
 			files = (
 				B88007BF1DF37848001C7CF5 /* SearchViewController.swift in Sources */,
 				B84D397F1DE8CC9B0098F444 /* MyMediaTableViewController.swift in Sources */,
+				B88007C71DF56874001C7CF5 /* SearchResultTableViewCell.swift in Sources */,
 				B88007C11DF4C897001C7CF5 /* SearchFilterTableViewCell.swift in Sources */,
 				B84D39511DE8CC6B0098F444 /* AppDelegate.swift in Sources */,
 				B88007BB1DF23455001C7CF5 /* EpisodesViewController.swift in Sources */,
