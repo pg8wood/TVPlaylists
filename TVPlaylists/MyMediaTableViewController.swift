@@ -46,14 +46,9 @@ class MyMediaTableViewController: UITableViewController {
         
         // Sort the playlists in alphabetical order
         playlists.sort { $0 < $1 }
-      
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+   
     /*
      ----------------------------------------------
      MARK: - UITableViewDataSource Protocol Methods
@@ -89,7 +84,6 @@ class MyMediaTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistCell", for: indexPath) as! PlayListTableViewCell
         let scrollMenu = cell.scrollMenu!
-        //let rowNumber: Int = (indexPath as NSIndexPath).row
         let sectionNumber: Int = (indexPath as NSIndexPath).section
         
         // Get the name of the playlist
@@ -229,6 +223,14 @@ class MyMediaTableViewController: UITableViewController {
 
         performSegue(withIdentifier: "showEpisodes", sender: self)
     }
+    
+    /**
+     * MARK: - Search Button tapped
+     */
+    @IBAction func searchButtonTapped(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showSearch", sender: self)
+    }
+    
     
     
     /**

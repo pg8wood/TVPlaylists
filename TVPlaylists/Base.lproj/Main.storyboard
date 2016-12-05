@@ -53,16 +53,173 @@
                             <outlet property="delegate" destination="9Zl-Ss-JCr" id="X6g-ZC-tXk"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My Media" id="xFI-LN-acd"/>
+                    <navigationItem key="navigationItem" title="My Media" id="xFI-LN-acd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Fdu-36-dnw">
+                            <connections>
+                                <action selector="searchButtonTapped:" destination="9Zl-Ss-JCr" id="yuN-hi-hwo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mediaTableView" destination="0i0-vF-ClG" id="DmK-bq-LOt"/>
                         <outlet property="tableView" destination="0i0-vF-ClG" id="19M-Qh-ueK"/>
                         <segue destination="gzn-iE-6QA" kind="show" identifier="showEpisodes" id="vaU-wg-gph"/>
+                        <segue destination="COd-1m-6ru" kind="show" identifier="showSearch" id="um4-1n-6C6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kSH-9v-BzL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1020" y="142.57871064467767"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="uEk-6e-tgU">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="COd-1m-6ru" customClass="SearchViewController" customModule="TVPlaylists" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WqQ-kA-Shb"/>
+                        <viewControllerLayoutGuide type="bottom" id="vz2-Hy-KXj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TOs-T9-Fl8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TYB-8m-6hq">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="filterCell" rowHeight="312" id="BWi-g9-hiW" customClass="SearchFilterTableViewCell" customModule="TVPlaylists" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="312"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BWi-g9-hiW" id="aVB-Ob-6As">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="311"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gan-9d-7Xv">
+                                                    <rect key="frame" x="17" y="57" width="343" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter episode name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ODa-OS-yrJ">
+                                                    <rect key="frame" x="17" y="86" width="343" height="30"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actor(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RL-2Z-ace">
+                                                    <rect key="frame" x="17" y="124" width="351" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Holiday Episode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TOz-3J-uJt">
+                                                    <rect key="frame" x="18" y="191" width="342" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ex: Jennifer Lawrence, Kevin Spacey" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dfs-65-TLh">
+                                                    <rect key="frame" x="17" y="153" width="343" height="30"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wrQ-RW-0je">
+                                                    <rect key="frame" x="18" y="207" width="342" height="104"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="104" id="quO-hk-gbK"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="COd-1m-6ru" id="E6H-j9-VHZ"/>
+                                                        <outlet property="delegate" destination="COd-1m-6ru" id="eGK-dt-ZVV"/>
+                                                    </connections>
+                                                </pickerView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENh-Zl-aHp">
+                                                    <rect key="frame" x="16" y="20" width="342" height="30"/>
+                                                    <inset key="imageEdgeInsets" minX="-20" minY="-20" maxX="-3" maxY="-20"/>
+                                                    <state key="normal" title=" Search Filters"/>
+                                                    <connections>
+                                                        <action selector="showCollapseButtonTapped:" destination="BWi-g9-hiW" eventType="touchUpInside" id="W5n-5d-juW"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gan-9d-7Xv" secondAttribute="trailing" constant="7" id="2t0-b9-4RX"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="TOz-3J-uJt" secondAttribute="trailing" constant="7" id="3uQ-Fs-tlX"/>
+                                                <constraint firstItem="ODa-OS-yrJ" firstAttribute="leading" secondItem="aVB-Ob-6As" secondAttribute="leadingMargin" constant="9" id="52U-56-D95"/>
+                                                <constraint firstItem="gan-9d-7Xv" firstAttribute="leading" secondItem="aVB-Ob-6As" secondAttribute="leadingMargin" constant="9" id="6Li-uJ-nzz"/>
+                                                <constraint firstItem="Dfs-65-TLh" firstAttribute="top" secondItem="8RL-2Z-ace" secondAttribute="bottom" constant="8" id="G3v-mr-nRI"/>
+                                                <constraint firstItem="8RL-2Z-ace" firstAttribute="top" secondItem="ODa-OS-yrJ" secondAttribute="bottom" constant="8" id="G8E-OI-0p0"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="8RL-2Z-ace" secondAttribute="trailing" constant="-1" id="LAx-RT-tpp"/>
+                                                <constraint firstItem="Dfs-65-TLh" firstAttribute="leading" secondItem="aVB-Ob-6As" secondAttribute="leadingMargin" constant="9" id="M9p-o8-xTF"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Dfs-65-TLh" secondAttribute="trailing" constant="7" id="PA8-HG-Wwm"/>
+                                                <constraint firstItem="wrQ-RW-0je" firstAttribute="top" secondItem="TOz-3J-uJt" secondAttribute="bottom" constant="-5" id="Q3k-ym-PBX"/>
+                                                <constraint firstItem="wrQ-RW-0je" firstAttribute="leading" secondItem="aVB-Ob-6As" secondAttribute="leadingMargin" constant="10" id="W7D-Wv-eZy"/>
+                                                <constraint firstItem="ENh-Zl-aHp" firstAttribute="leading" secondItem="aVB-Ob-6As" secondAttribute="leadingMargin" constant="8" id="YgD-9g-EiJ"/>
+                                                <constraint firstItem="8RL-2Z-ace" firstAttribute="leading" secondItem="aVB-Ob-6As" secondAttribute="leadingMargin" constant="9" id="Yzu-Lf-2RI"/>
+                                                <constraint firstItem="ENh-Zl-aHp" firstAttribute="top" secondItem="aVB-Ob-6As" secondAttribute="topMargin" constant="12" id="bNl-Vr-Q1l"/>
+                                                <constraint firstItem="ODa-OS-yrJ" firstAttribute="top" secondItem="gan-9d-7Xv" secondAttribute="bottom" constant="8" id="cyB-zq-vKI"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="wrQ-RW-0je" secondAttribute="trailing" constant="7" id="ela-jJ-z9t"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ENh-Zl-aHp" secondAttribute="trailing" constant="9" id="fpk-Vl-g6N"/>
+                                                <constraint firstItem="TOz-3J-uJt" firstAttribute="leading" secondItem="aVB-Ob-6As" secondAttribute="leadingMargin" constant="10" id="g4w-xa-4cj"/>
+                                                <constraint firstItem="gan-9d-7Xv" firstAttribute="top" secondItem="ENh-Zl-aHp" secondAttribute="bottom" constant="7" id="qxh-XR-5h6"/>
+                                                <constraint firstItem="TOz-3J-uJt" firstAttribute="top" secondItem="Dfs-65-TLh" secondAttribute="bottom" constant="8" id="sZ0-Mc-H0L"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ODa-OS-yrJ" secondAttribute="trailing" constant="7" id="zsQ-LN-Cd8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="actorsTextField" destination="Dfs-65-TLh" id="ap6-fj-RZc"/>
+                                            <outlet property="episodeNameTextField" destination="ODa-OS-yrJ" id="kRp-FS-DWU"/>
+                                            <outlet property="holidayPickerView" destination="wrQ-RW-0je" id="gdx-ew-gW8"/>
+                                            <outlet property="showCollapseButton" destination="ENh-Zl-aHp" id="Z0j-af-WjG"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="resultCell" textLabel="5Iq-DG-FCb" detailTextLabel="7dI-rs-AIn" rowHeight="100" style="IBUITableViewCellStyleSubtitle" id="RT1-Gv-aEw">
+                                        <rect key="frame" x="0.0" y="340" width="375" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RT1-Gv-aEw" id="okh-Q9-iPg">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Iq-DG-FCb">
+                                                    <rect key="frame" x="15" y="32" width="34" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7dI-rs-AIn">
+                                                    <rect key="frame" x="15" y="53" width="33" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="COd-1m-6ru" id="HL1-tX-W6p"/>
+                                    <outlet property="delegate" destination="COd-1m-6ru" id="Ga6-4S-zCc"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="TYB-8m-6hq" secondAttribute="trailing" id="KZr-lr-Yc2"/>
+                            <constraint firstItem="vz2-Hy-KXj" firstAttribute="top" secondItem="TYB-8m-6hq" secondAttribute="bottom" id="OKM-bF-ryZ"/>
+                            <constraint firstItem="TYB-8m-6hq" firstAttribute="leading" secondItem="TOs-T9-Fl8" secondAttribute="leading" id="cMr-78-IPu"/>
+                            <constraint firstItem="TYB-8m-6hq" firstAttribute="top" secondItem="WqQ-kA-Shb" secondAttribute="bottom" id="txt-Fj-qD1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="resultsTableView" destination="TYB-8m-6hq" id="qgw-cs-97R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6TP-Zg-NY5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2116" y="416.94152923538235"/>
         </scene>
         <!--Playlist Name - Show Title-->
         <scene sceneID="sdh-sV-wZZ">

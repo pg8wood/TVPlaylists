@@ -1,0 +1,562 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B82A3BFB1DF20CE4002CCFE5 /* PlayListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82A3BFA1DF20CE4002CCFE5 /* PlayListTableViewCell.swift */; };
+		B84D39511DE8CC6B0098F444 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D39501DE8CC6B0098F444 /* AppDelegate.swift */; };
+		B84D39561DE8CC6B0098F444 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B84D39541DE8CC6B0098F444 /* Main.storyboard */; };
+		B84D39581DE8CC6B0098F444 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B84D39571DE8CC6B0098F444 /* Assets.xcassets */; };
+		B84D395B1DE8CC6B0098F444 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B84D39591DE8CC6B0098F444 /* LaunchScreen.storyboard */; };
+		B84D39661DE8CC6B0098F444 /* TVPlaylistsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D39651DE8CC6B0098F444 /* TVPlaylistsTests.swift */; };
+		B84D39711DE8CC6B0098F444 /* TVPlaylistsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D39701DE8CC6B0098F444 /* TVPlaylistsUITests.swift */; };
+		B84D397F1DE8CC9B0098F444 /* MyMediaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D397E1DE8CC9B0098F444 /* MyMediaTableViewController.swift */; };
+		B84D39811DE8D6B50098F444 /* MyMedia.plist in Resources */ = {isa = PBXBuildFile; fileRef = B84D39801DE8D6B50098F444 /* MyMedia.plist */; };
+		B88007BB1DF23455001C7CF5 /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007BA1DF23455001C7CF5 /* EpisodesViewController.swift */; };
+		B88007BD1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007BC1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift */; };
+		B88007BF1DF37848001C7CF5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007BE1DF37848001C7CF5 /* SearchViewController.swift */; };
+		B88007C11DF4C897001C7CF5 /* SearchFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B84D39621DE8CC6B0098F444 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B84D39451DE8CC6B0098F444 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B84D394C1DE8CC6B0098F444;
+			remoteInfo = TVPlaylists;
+		};
+		B84D396D1DE8CC6B0098F444 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B84D39451DE8CC6B0098F444 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B84D394C1DE8CC6B0098F444;
+			remoteInfo = TVPlaylists;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B82A3BFA1DF20CE4002CCFE5 /* PlayListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayListTableViewCell.swift; sourceTree = "<group>"; };
+		B84D394D1DE8CC6B0098F444 /* TVPlaylists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVPlaylists.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B84D39501DE8CC6B0098F444 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B84D39551DE8CC6B0098F444 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B84D39571DE8CC6B0098F444 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B84D395A1DE8CC6B0098F444 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B84D395C1DE8CC6B0098F444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B84D39611DE8CC6B0098F444 /* TVPlaylistsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TVPlaylistsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B84D39651DE8CC6B0098F444 /* TVPlaylistsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVPlaylistsTests.swift; sourceTree = "<group>"; };
+		B84D39671DE8CC6B0098F444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B84D396C1DE8CC6B0098F444 /* TVPlaylistsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TVPlaylistsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B84D39701DE8CC6B0098F444 /* TVPlaylistsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVPlaylistsUITests.swift; sourceTree = "<group>"; };
+		B84D39721DE8CC6B0098F444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B84D397E1DE8CC9B0098F444 /* MyMediaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMediaTableViewController.swift; sourceTree = "<group>"; };
+		B84D39801DE8D6B50098F444 /* MyMedia.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MyMedia.plist; sourceTree = "<group>"; };
+		B88007BA1DF23455001C7CF5 /* EpisodesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodesViewController.swift; sourceTree = "<group>"; };
+		B88007BC1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EpisodeTableViewCell.swift; sourceTree = "<group>"; };
+		B88007BE1DF37848001C7CF5 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFilterTableViewCell.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B84D394A1DE8CC6B0098F444 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84D395E1DE8CC6B0098F444 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84D39691DE8CC6B0098F444 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B84D39441DE8CC6B0098F444 = {
+			isa = PBXGroup;
+			children = (
+				B84D394F1DE8CC6B0098F444 /* TVPlaylists */,
+				B84D39641DE8CC6B0098F444 /* TVPlaylistsTests */,
+				B84D396F1DE8CC6B0098F444 /* TVPlaylistsUITests */,
+				B84D394E1DE8CC6B0098F444 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B84D394E1DE8CC6B0098F444 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B84D394D1DE8CC6B0098F444 /* TVPlaylists.app */,
+				B84D39611DE8CC6B0098F444 /* TVPlaylistsTests.xctest */,
+				B84D396C1DE8CC6B0098F444 /* TVPlaylistsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B84D394F1DE8CC6B0098F444 /* TVPlaylists */ = {
+			isa = PBXGroup;
+			children = (
+				B84D39501DE8CC6B0098F444 /* AppDelegate.swift */,
+				B84D397E1DE8CC9B0098F444 /* MyMediaTableViewController.swift */,
+				B82A3BFA1DF20CE4002CCFE5 /* PlayListTableViewCell.swift */,
+				B88007BA1DF23455001C7CF5 /* EpisodesViewController.swift */,
+				B88007BC1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift */,
+				B88007BE1DF37848001C7CF5 /* SearchViewController.swift */,
+				B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */,
+				B84D39541DE8CC6B0098F444 /* Main.storyboard */,
+				B84D39571DE8CC6B0098F444 /* Assets.xcassets */,
+				B84D39591DE8CC6B0098F444 /* LaunchScreen.storyboard */,
+				B84D395C1DE8CC6B0098F444 /* Info.plist */,
+				B84D39801DE8D6B50098F444 /* MyMedia.plist */,
+			);
+			path = TVPlaylists;
+			sourceTree = "<group>";
+		};
+		B84D39641DE8CC6B0098F444 /* TVPlaylistsTests */ = {
+			isa = PBXGroup;
+			children = (
+				B84D39651DE8CC6B0098F444 /* TVPlaylistsTests.swift */,
+				B84D39671DE8CC6B0098F444 /* Info.plist */,
+			);
+			path = TVPlaylistsTests;
+			sourceTree = "<group>";
+		};
+		B84D396F1DE8CC6B0098F444 /* TVPlaylistsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B84D39701DE8CC6B0098F444 /* TVPlaylistsUITests.swift */,
+				B84D39721DE8CC6B0098F444 /* Info.plist */,
+			);
+			path = TVPlaylistsUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B84D394C1DE8CC6B0098F444 /* TVPlaylists */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B84D39751DE8CC6B0098F444 /* Build configuration list for PBXNativeTarget "TVPlaylists" */;
+			buildPhases = (
+				B84D39491DE8CC6B0098F444 /* Sources */,
+				B84D394A1DE8CC6B0098F444 /* Frameworks */,
+				B84D394B1DE8CC6B0098F444 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TVPlaylists;
+			productName = TVPlaylists;
+			productReference = B84D394D1DE8CC6B0098F444 /* TVPlaylists.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B84D39601DE8CC6B0098F444 /* TVPlaylistsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B84D39781DE8CC6B0098F444 /* Build configuration list for PBXNativeTarget "TVPlaylistsTests" */;
+			buildPhases = (
+				B84D395D1DE8CC6B0098F444 /* Sources */,
+				B84D395E1DE8CC6B0098F444 /* Frameworks */,
+				B84D395F1DE8CC6B0098F444 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B84D39631DE8CC6B0098F444 /* PBXTargetDependency */,
+			);
+			name = TVPlaylistsTests;
+			productName = TVPlaylistsTests;
+			productReference = B84D39611DE8CC6B0098F444 /* TVPlaylistsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B84D396B1DE8CC6B0098F444 /* TVPlaylistsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B84D397B1DE8CC6B0098F444 /* Build configuration list for PBXNativeTarget "TVPlaylistsUITests" */;
+			buildPhases = (
+				B84D39681DE8CC6B0098F444 /* Sources */,
+				B84D39691DE8CC6B0098F444 /* Frameworks */,
+				B84D396A1DE8CC6B0098F444 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B84D396E1DE8CC6B0098F444 /* PBXTargetDependency */,
+			);
+			name = TVPlaylistsUITests;
+			productName = TVPlaylistsUITests;
+			productReference = B84D396C1DE8CC6B0098F444 /* TVPlaylistsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B84D39451DE8CC6B0098F444 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Patrick Gatewood";
+				TargetAttributes = {
+					B84D394C1DE8CC6B0098F444 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = U3465V32BF;
+						ProvisioningStyle = Automatic;
+					};
+					B84D39601DE8CC6B0098F444 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = U3465V32BF;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B84D394C1DE8CC6B0098F444;
+					};
+					B84D396B1DE8CC6B0098F444 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = U3465V32BF;
+						ProvisioningStyle = Automatic;
+						TestTargetID = B84D394C1DE8CC6B0098F444;
+					};
+				};
+			};
+			buildConfigurationList = B84D39481DE8CC6B0098F444 /* Build configuration list for PBXProject "TVPlaylists" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B84D39441DE8CC6B0098F444;
+			productRefGroup = B84D394E1DE8CC6B0098F444 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B84D394C1DE8CC6B0098F444 /* TVPlaylists */,
+				B84D39601DE8CC6B0098F444 /* TVPlaylistsTests */,
+				B84D396B1DE8CC6B0098F444 /* TVPlaylistsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B84D394B1DE8CC6B0098F444 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B84D395B1DE8CC6B0098F444 /* LaunchScreen.storyboard in Resources */,
+				B84D39811DE8D6B50098F444 /* MyMedia.plist in Resources */,
+				B84D39581DE8CC6B0098F444 /* Assets.xcassets in Resources */,
+				B84D39561DE8CC6B0098F444 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84D395F1DE8CC6B0098F444 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84D396A1DE8CC6B0098F444 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B84D39491DE8CC6B0098F444 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B88007BF1DF37848001C7CF5 /* SearchViewController.swift in Sources */,
+				B84D397F1DE8CC9B0098F444 /* MyMediaTableViewController.swift in Sources */,
+				B88007C11DF4C897001C7CF5 /* SearchFilterTableViewCell.swift in Sources */,
+				B84D39511DE8CC6B0098F444 /* AppDelegate.swift in Sources */,
+				B88007BB1DF23455001C7CF5 /* EpisodesViewController.swift in Sources */,
+				B88007BD1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift in Sources */,
+				B82A3BFB1DF20CE4002CCFE5 /* PlayListTableViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84D395D1DE8CC6B0098F444 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B84D39661DE8CC6B0098F444 /* TVPlaylistsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B84D39681DE8CC6B0098F444 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B84D39711DE8CC6B0098F444 /* TVPlaylistsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B84D39631DE8CC6B0098F444 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B84D394C1DE8CC6B0098F444 /* TVPlaylists */;
+			targetProxy = B84D39621DE8CC6B0098F444 /* PBXContainerItemProxy */;
+		};
+		B84D396E1DE8CC6B0098F444 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B84D394C1DE8CC6B0098F444 /* TVPlaylists */;
+			targetProxy = B84D396D1DE8CC6B0098F444 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B84D39541DE8CC6B0098F444 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B84D39551DE8CC6B0098F444 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B84D39591DE8CC6B0098F444 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B84D395A1DE8CC6B0098F444 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B84D39731DE8CC6B0098F444 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B84D39741DE8CC6B0098F444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B84D39761DE8CC6B0098F444 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = U3465V32BF;
+				INFOPLIST_FILE = TVPlaylists/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickgatewood.TVPlaylists;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		B84D39771DE8CC6B0098F444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = U3465V32BF;
+				INFOPLIST_FILE = TVPlaylists/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickgatewood.TVPlaylists;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		B84D39791DE8CC6B0098F444 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = U3465V32BF;
+				INFOPLIST_FILE = TVPlaylistsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickgatewood.TVPlaylistsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TVPlaylists.app/TVPlaylists";
+			};
+			name = Debug;
+		};
+		B84D397A1DE8CC6B0098F444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = U3465V32BF;
+				INFOPLIST_FILE = TVPlaylistsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickgatewood.TVPlaylistsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TVPlaylists.app/TVPlaylists";
+			};
+			name = Release;
+		};
+		B84D397C1DE8CC6B0098F444 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = U3465V32BF;
+				INFOPLIST_FILE = TVPlaylistsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickgatewood.TVPlaylistsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = TVPlaylists;
+			};
+			name = Debug;
+		};
+		B84D397D1DE8CC6B0098F444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = U3465V32BF;
+				INFOPLIST_FILE = TVPlaylistsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.patrickgatewood.TVPlaylistsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = TVPlaylists;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B84D39481DE8CC6B0098F444 /* Build configuration list for PBXProject "TVPlaylists" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B84D39731DE8CC6B0098F444 /* Debug */,
+				B84D39741DE8CC6B0098F444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B84D39751DE8CC6B0098F444 /* Build configuration list for PBXNativeTarget "TVPlaylists" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B84D39761DE8CC6B0098F444 /* Debug */,
+				B84D39771DE8CC6B0098F444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B84D39781DE8CC6B0098F444 /* Build configuration list for PBXNativeTarget "TVPlaylistsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B84D39791DE8CC6B0098F444 /* Debug */,
+				B84D397A1DE8CC6B0098F444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B84D397B1DE8CC6B0098F444 /* Build configuration list for PBXNativeTarget "TVPlaylistsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B84D397C1DE8CC6B0098F444 /* Debug */,
+				B84D397D1DE8CC6B0098F444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B84D39451DE8CC6B0098F444 /* Project object */;
+}
