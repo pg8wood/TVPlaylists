@@ -319,11 +319,20 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         } else {
             
             // Show already exists: add the episode
+            let seasonNumber = episodeData[3]
+            let seasonData = playlistDictionary[showName] as! NSMutableDictionary
+            
+            // Episodes already exist in the season: append the new episode
+            if let episodesInSeason = seasonData[seasonNumber] as? [[String]] {
+        
+                var episodes = episodesInSeason
+                episodes.append(episodeData)
+            } else {
+                
+                // No episodes are in the season
+                seasonData.setValue([[episodeData]], forKey: seasonNumber)
+            }
         }
-        
-        
-        
-        
 
     }
     
@@ -364,33 +373,35 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                 // listOfEpisodes sis an Array of Dictionaries, where each Dictionary contains data about a season
                 let listOfEpisodesFound = seasonDataDictionary["episodes"] as! Array<AnyObject>
                 
-                let numberOfSeasonsFromJsonData = listOfEpisodesFound.count
+                let numberOfEpisodesFromJsonData = listOfEpisodesFound.count
                 
                 // Add data to the show's dictionary stored locally
                 var showDataArray = showData[keyName] as? [[String]]
                 
-                // Store the episode data
-                for i in 1..<numberOfSeasonsFromJsonData {
-                    
-                    let episodeData = listOfEpisodesFound[i] as! Dictionary<String, AnyObject>
-                    let episodeName = episodeData["name"] as! String
-                    let episodeDescription = episodeData["overview"] as! String
-                    let episodeSeason = "\(episodeData["season_number"] as! Int)"
-                    
-                    // Store the values, or a default value if not found
-                    let stringDescription = episodeDescription == "" ? "No description available" : episodeDescription
-                    let intRating = episodeData["vote_average"] as! Int
-                    let stringRating = intRating == 0 ? "not rated" : "\(intRating)"
-                    
-                    
-                    // Array already found and exists
-                    if showDataArray != nil {
-                        showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason])
-                    } else {
-                        // Create the array
-                        showData.setValue([[String]](), forKey: keyName)
-                        showDataArray = showData[keyName] as? [[String]]
-                        showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason])
+                if numberOfEpisodesFromJsonData > 0 {
+                    // Store the episode data
+                    for i in 0..<numberOfEpisodesFromJsonData {
+                        
+                        let episodeData = listOfEpisodesFound[i] as! Dictionary<String, AnyObject>
+                        let episodeName = episodeData["name"] as! String
+                        let episodeDescription = episodeData["overview"] as! String
+                        let episodeSeason = "\(episodeData["season_number"] as! Int)"
+                        
+                        // Store the values, or a default value if not found
+                        let stringDescription = episodeDescription == "" ? "No description available" : episodeDescription
+                        let intRating = episodeData["vote_average"] as! Int
+                        let stringRating = intRating == 0 ? "not rated" : "\(intRating)"
+                        
+                        
+                        // Array already found and exists
+                        if showDataArray != nil {
+                            showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason])
+                        } else {
+                            // Create the array
+                            showData.setValue([[String]](), forKey: keyName)
+                            showDataArray = showData[keyName] as? [[String]]
+                            showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason])
+                        }
                     }
                 }
                 
