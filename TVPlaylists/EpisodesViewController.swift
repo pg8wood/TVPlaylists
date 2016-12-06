@@ -39,8 +39,21 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
         showData = dataPassed[2] as! NSMutableDictionary
         seasons = showData.allKeys as! [String]
         
-        // Load the show's image
-        posterImageView.image = UIImage(named: showName)
+        // Obtain the show's poster image
+        var showPosterImage: UIImage!
+        
+        let imageInXcAssets = UIImage(named: showName)
+        
+        // Image found in xcassetsFolder
+        if imageInXcAssets != nil {
+            showPosterImage = imageInXcAssets
+        } else {
+            
+            // Image is in the Documents directory
+            showPosterImage = loadImageFromDocumentsDirectory(imageName: showName)
+        }
+        
+        posterImageView.image = showPosterImage
         
         // Format the cell
         episodesTableView.estimatedRowHeight = 150
@@ -165,5 +178,24 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
         // Reload the table view's rows since the table view list has changed
         tableView.reloadData()
     }
+    
+    /**
+     * MARK: - Load image from Documents directory
+     */
+    func loadImageFromDocumentsDirectory(imageName: String) -> UIImage {
+        let fileManager = FileManager.default
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentDirectoryPath = paths[0] as String
+        let imagePath = documentDirectoryPath + "/\(imageName)"
+        
+        if fileManager.fileExists(atPath: imagePath) {
+            return UIImage(contentsOfFile: imagePath)!
+        } else {
+            
+            // Image not found
+            return UIImage(named: "noPosterImage")!
+        }
+    }
+
 
 }

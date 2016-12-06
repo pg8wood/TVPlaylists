@@ -22,6 +22,7 @@
 		B88007C11DF4C897001C7CF5 /* SearchFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */; };
 		B88007C71DF56874001C7CF5 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007C61DF56874001C7CF5 /* SearchResultTableViewCell.swift */; };
 		B88007C91DF62BAD001C7CF5 /* OnlineEpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007C81DF62BAD001C7CF5 /* OnlineEpisodesViewController.swift */; };
+		B88007CB1DF68D12001C7CF5 /* AddPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88007CA1DF68D12001C7CF5 /* AddPlaylistViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFilterTableViewCell.swift; sourceTree = "<group>"; };
 		B88007C61DF56874001C7CF5 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		B88007C81DF62BAD001C7CF5 /* OnlineEpisodesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnlineEpisodesViewController.swift; sourceTree = "<group>"; };
+		B88007CA1DF68D12001C7CF5 /* AddPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlaylistViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				B84D39501DE8CC6B0098F444 /* AppDelegate.swift */,
 				B84D397E1DE8CC9B0098F444 /* MyMediaTableViewController.swift */,
 				B82A3BFA1DF20CE4002CCFE5 /* PlayListTableViewCell.swift */,
+				B88007CA1DF68D12001C7CF5 /* AddPlaylistViewController.swift */,
 				B88007BA1DF23455001C7CF5 /* EpisodesViewController.swift */,
 				B88007BC1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift */,
 				B88007BE1DF37848001C7CF5 /* SearchViewController.swift */,
@@ -287,6 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B88007CB1DF68D12001C7CF5 /* AddPlaylistViewController.swift in Sources */,
 				B88007BF1DF37848001C7CF5 /* SearchViewController.swift in Sources */,
 				B84D397F1DE8CC9B0098F444 /* MyMediaTableViewController.swift in Sources */,
 				B88007C71DF56874001C7CF5 /* SearchResultTableViewCell.swift in Sources */,

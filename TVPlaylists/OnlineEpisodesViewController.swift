@@ -13,7 +13,6 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet var posterImageView: UIImageView!
     @IBOutlet var episodesTableView: UITableView!
     
-    
     // Data passed by an upstream ViewController
     // Format:
     // dataPassed[0] = showName
@@ -30,6 +29,10 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
     var seasonData: Array<AnyObject> = []
     var seasons = [String]()
     var showId: String = "-1"
+    var filtered = true;
+    
+    // The position of the add button that will be pressed
+    var addButtonPosition: CGPoint = CGPoint.zero
     
     // My TMDB API Key
     let tmdbApiKey: String = "68060180bf3305a501c36e9a7ca5f03c"
@@ -88,6 +91,29 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         episodesTableView.estimatedRowHeight = 150
         episodesTableView.rowHeight = UITableViewAutomaticDimension
         
+        
+        // --------------------------
+        let episodeNameFilter = ""
+        let actorsFilter = ""
+        let holidayFilter = "Christmas"
+        
+        // TODO pass filters and check them idk
+        if filtered {
+            
+            // First check the holiday filter since it eliminates the most results
+//            if holidayFilter != "None" {
+//                
+//                
+//                
+//                
+//                // http://imdbapi.poromenos.org/js/?name=once+upon+a+time&year=2011
+//            }
+        }
+        
+        
+        
+        // ------------------------------
+        
         // Initially display seasons only
         tableViewList = seasons
     }
@@ -142,6 +168,9 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             cell = tableView.dequeueReusableCell(withIdentifier: "episodeCell")!
             let thisCell = cell as! EpisodeTableViewCell
             
+            // Disable cell highlighting on selection
+            cell.selectionStyle = .none
+            
             // Set up the cell's data
             let episodeData = tableViewList[rowNumber] as! [String]
             
@@ -149,10 +178,16 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             thisCell.episodeTextView.text = episodeData[1]      // description
             thisCell.episodeRatingLabel.text = episodeData[2]   // rating
             
+            // Add an add button to the cell
+            let addButton = UIButton(type: .contactAdd)
+            addButton.isUserInteractionEnabled = true
+            addButton.addTarget(self, action: #selector(OnlineEpisodesViewController.addButtonPressed(_:)), for: .touchUpInside)
+            cell.accessoryView = addButton
         }
         
         return cell
     }
+    
     
     // TableView cell tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -220,6 +255,78 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         tableView.reloadData()
     }
     
+    /**
+     * -------------------------------
+     * MARK: - Cell Add Button Pressed
+     * -------------------------------
+     */
+    func addButtonPressed(_ sender: UIButton) {
+        // Episode data was tapped: add the episode to a playlist
+        
+        // Get the location of the button
+        addButtonPosition = sender.convert(CGPoint.zero, to: episodesTableView)
+        
+        // Get the list of playlists
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let playlists: [String] = appDelegate.dict_PlaylistName_MediaName.allKeys as! [String]
+        
+        // Create an alert controller
+        let alertController = UIAlertController(title: "Add to Playlist", message: "Choose a playlist to add this episode to.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        for playlistName in playlists {
+            alertController.addAction(UIAlertAction(title: playlistName, style: UIAlertActionStyle.default, handler: saveEpisode))
+        }
+        
+        
+        // Present the alert controller by calling the present method
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    func saveEpisode(alert: UIAlertAction!) {
+        
+        // Get the episode data to add
+        let buttonCellIndex = episodesTableView.indexPathForRow(at: addButtonPosition)
+        let episodeData = tableViewList[buttonCellIndex!.row] as! [String]
+        
+        // Get the name of the playlist
+        let playlistName = alert.title!
+        
+        // Get the list of playlists
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        // Get the list of shows in the playlist
+        let playlistDictionary: NSMutableDictionary = appDelegate.dict_PlaylistName_MediaName.value(forKey: playlistName) as! NSMutableDictionary
+        
+        // Show not found in playlist: add it to the dictionary
+        
+        if playlistDictionary[showName] == nil {
+            
+            playlistDictionary.setValue(NSMutableDictionary(), forKey: showName)
+            let newShowDictionary: NSMutableDictionary = playlistDictionary.value(forKey: showName) as! NSMutableDictionary
+            
+            // Add the episode data to the dictionary.
+            let seasonNumber = episodeData[3]
+            newShowDictionary.setValue([episodeData], forKey: seasonNumber)
+            
+            // Save the show's image 
+            let fileManager = FileManager.default
+            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+            let documentDirectoryPath = paths[0] as String
+            let writePath = documentDirectoryPath + "/\(showName)"
+            let imageToSave = UIImagePNGRepresentation(posterImageView.image!)
+            fileManager.createFile(atPath: writePath, contents: imageToSave, attributes: nil)
+        } else {
+            
+            // Show already exists: add the episode
+        }
+        
+        
+        
+        
+
+    }
+    
     
     // ------------------------------------------------------------------------------
     //                                Get data from server
@@ -268,17 +375,22 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                     let episodeData = listOfEpisodesFound[i] as! Dictionary<String, AnyObject>
                     let episodeName = episodeData["name"] as! String
                     let episodeDescription = episodeData["overview"] as! String
+                    let episodeSeason = "\(episodeData["season_number"] as! Int)"
+                    
+                    // Store the values, or a default value if not found
+                    let stringDescription = episodeDescription == "" ? "No description available" : episodeDescription
                     let intRating = episodeData["vote_average"] as! Int
                     let stringRating = intRating == 0 ? "not rated" : "\(intRating)"
                     
+                    
                     // Array already found and exists
                     if showDataArray != nil {
-                        showDataArray!.append([episodeName, episodeDescription, stringRating])
+                        showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason])
                     } else {
                         // Create the array
                         showData.setValue([[String]](), forKey: keyName)
                         showDataArray = showData[keyName] as? [[String]]
-                        showDataArray!.append([episodeName, episodeDescription, stringRating])
+                        showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason])
                     }
                 }
                 

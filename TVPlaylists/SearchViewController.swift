@@ -675,6 +675,11 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let section: Int = indexPath.section
         let row: Int = indexPath.row
         
+        // Section 0 is reserved for the filter view cell
+        if section == 0 {
+            return
+        }
+        
         let selectedShowTitle = (tableView.cellForRow(at: indexPath) as! SearchResultTableViewCell).titleLabel!.text
         
         // If a local show was selected
@@ -702,6 +707,10 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             dataToPass[0] = selectedPlaylist
             dataToPass[1] = selectedShowTitle!
             dataToPass[2] = selectedShowData[selectedShowTitle!]!
+            
+            // Close the search bar
+            searchResultsController.isActive = false
+            
             
             performSegue(withIdentifier: "showLocalEpisodes", sender: self)
         } else if section == 2 {
