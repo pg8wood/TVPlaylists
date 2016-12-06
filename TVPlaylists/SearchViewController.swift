@@ -32,6 +32,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var localPlaylists = [String]()
     var localShows = [String]()
     
+    // Data to be passed to a downstream view controller
+    var dataToPass: [Any] = [0, 0, 0, 0]
+    
     // My TMDB API Key
     let tmdbApiKey: String = "68060180bf3305a501c36e9a7ca5f03c"
     
@@ -206,7 +209,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 // No results were found
                 if numberOfshowsFromJsonData < 1 {
                     
-                    showNoResultsFound()
+                    showNoResultsFound(rowNumber: 0)
                     return
                 }
                 
@@ -216,7 +219,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 // Declaration of local variables
                 var posterImageURL: String?
                 var showTitle: String?
-                var showId: Int?
+                var showId: String
                 var releaseDate: String?
                 var mpaaRating: String?
                 var imdbRating: String?
@@ -282,13 +285,33 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         showTitle = "No show title is available!"
                     }
                     
+                    //--------
+                    // Show ID
+                    //--------
+                    
+                    let idFromJson: String? = "\(showDictionary["id"] as! Int)"
+                    
+                    if let showIdObtained = idFromJson {
+                        
+                        if !showIdObtained.isEmpty {
+                                showId = showIdObtained
+                        } else {
+                            showId = "-1"
+                        }
+                    } else {
+                        showId = "-1"
+                    }
+
+                    
+                    
+                    
                     /*
                      =============================================
                      |  Obtain Other Data from OMDb: STEP 2 & 3  |
                      =============================================
                      */
                     
-                    let showDBIdFromJson = showDictionary["id"] as! Int
+                    //let showDBIdFromJson = showDictionary["id"] as! Int
                     
                     /*let imdbShowID: String? = imdbId(showDatabaseID: showDBIdFromJson)
                      
@@ -401,7 +424,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Skipping shows due to insufficient data makes this test required
         if arrayOfShowDictionaries.count == 0 {
             
-            showNoResultsFound()
+            showNoResultsFound(rowNumber: 0)
             return
         }
         
@@ -434,10 +457,19 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     
     // Display that no results were found
-    func showNoResultsFound() {
+    func showNoResultsFound(rowNumber: Int) {
         
-        let firstWebResultsCellIndexPath = NSIndexPath(row: 0, section: 2)
-        resultsTableView.cellForRow(at: firstWebResultsCellIndexPath as IndexPath)?.textLabel?.text = "No results found."
+        let firstWebResultsCellIndexPath = NSIndexPath(row: rowNumber, section: 2)
+        
+        let cell = (resultsTableView.cellForRow(at: firstWebResultsCellIndexPath as IndexPath)!) as! SearchResultTableViewCell
+        
+        if rowNumber == 0 {
+            cell.titleLabel!.text = "No results found."
+        } else {
+            cell.titleLabel!.text = "No episodes found!"
+        }
+        
+        cell.accessoryType = .none
     }
     
     /*
@@ -541,20 +573,21 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 thisCell.tableView = tableView
                 
                 // Set up the button image
-                thisCell.showCollapseButton!.setImage(UIImage(named: "downArrow")!, for: UIControlState())
+                thisCell.showCollapseButton!.setImage(UIImage(named: "downArrowBlack")!, for: UIControlState())
             }
         }
         else if sectionNumber == 1 {
             
             // Cell is a local results data cell
             cell = tableView.dequeueReusableCell(withIdentifier: "resultCell")!
+            let thisCell = cell as! SearchResultTableViewCell
             
             // Only display data while searching
             if (searchResultsController.isActive) {
                 
                 let result = localSearchResults[indexPath.row]
                 
-                cell.textLabel?.text = result
+                thisCell.titleLabel!.text = result
                 cell.imageView?.image = UIImage(named: result)
             }
         }
@@ -567,15 +600,13 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if arrayOfShowDictionaries.count == 0 {
                 
                 if searchResultsController.isActive {
-                    cell.textLabel?.text = "Tap 'Search' to search the web"
+                    thisCell.titleLabel!.text = "Tap 'Search' to search the web"
                     
                 } else {
-                    cell.textLabel?.text = ""
+                    thisCell.titleLabel!.text = ""
                 }
                 
                 // Clear out the cell
-                cell.textLabel!.text = ""
-                cell.textLabel!.text = ""
                 cell.imageView!.image = nil
                 cell.accessoryType = .none
             } else {
@@ -641,6 +672,123 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // TableViewCell tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let section: Int = indexPath.section
+        let row: Int = indexPath.row
+        
+        let selectedShowTitle = (tableView.cellForRow(at: indexPath) as! SearchResultTableViewCell).titleLabel!.text
+        
+        // If a local show was selected
+        if section == 1 {
+            var selectedPlaylist = localPlaylists[section]
+            
+            // Get the show data
+            var selectedShowData = NSMutableDictionary()
+            
+            // Search for the selected show
+            for i in 0..<localPlaylists.count {
+                selectedShowData.setValue((applicationDelegate.dict_PlaylistName_MediaName[localPlaylists[i]] as! NSMutableDictionary)[selectedShowTitle!.replacingOccurrences(of: "\\", with: "")], forKey: selectedShowTitle!)
+                
+                // Break once the show data is found
+                if selectedShowData[selectedShowTitle!] != nil {
+                    selectedPlaylist = localPlaylists[i]
+                    break
+                }
+            }
+            
+            // Prepare the data to pass
+            // dataToPass[0] = playlistName
+            // dataToPass[1] = showName
+            // dataToPass[2] = selectedShowData
+            dataToPass[0] = selectedPlaylist
+            dataToPass[1] = selectedShowTitle!
+            dataToPass[2] = selectedShowData[selectedShowTitle!]!
+            
+            performSegue(withIdentifier: "showLocalEpisodes", sender: self)
+        } else if section == 2 {
+            
+            // Don't look up the empty cell
+            if selectedShowTitle == "Tap 'Search' to search the web" {
+                
+                return
+            }
+            
+            // An online show was selected
+            
+            // Since a URL cannot have spaces, replace each space in the movie name to search with +.
+            //let selectedShowTitle = (tableView.cellForRow(at: indexPath) as! SearchResultTableViewCell).titleLabel!.text?.replacingOccurrences(of: " ", with: "+", options: [], range: nil)
+            
+            // Obtain the Dictionary containing the data about the show at rowNumber
+            let showDataDict = arrayOfShowDictionaries[row] as! Dictionary<String, AnyObject>
+            let showId: String = showDataDict["id"]! as! String
+            
+            // Search The show DB API to search for the entered query
+            // This URL returns the JSON data of the shows found for the search query showNameToSearch as in STEP 1
+            let apiURL = "http://api.themoviedb.org/3/tv/" + showId + "?api_key=\(tmdbApiKey)&language=en-US"
+            
+            // Create a URL object from the API URL string
+            let url = URL(string: apiURL)
+            
+            var jsonError: NSError?
+            
+            // TODO: if slow, try using a NSURL session if this yields poor performance.
+            // To obtain the best performance:
+            // (1) Download data in multiple threads including background downloads using multithreading and Grand Central Dispatch.
+            // (2) Store each image on the device after first download to prevent downloading it repeatedly.
+            
+            // Download the JSON via HTTP in a single thread.
+            let jsonData: Data?
+            do {
+                jsonData = try Data(contentsOf: url!, options: NSData.ReadingOptions.dataReadingMapped)
+                
+            } catch let error as NSError {
+                jsonError = error
+                jsonData = nil
+            }
+            
+            if let jsonDataFromApiUrl = jsonData {
+                
+                // JSON data is successfully retrieved
+                
+                do {
+                    let jsonDataDictionary = try JSONSerialization.jsonObject(with: jsonDataFromApiUrl, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary
+                    
+                    // Typecast the returned NSDictionary as Dictionary<String, AnyObject>
+                    let showDataDictionary = jsonDataDictionary as! Dictionary<String, AnyObject>
+                    
+                    // listOfSeasonsis an Array of Dictionaries, where each Dictionary contains data about a season
+                    let listOfSeasonsFound = showDataDictionary["seasons"] as! Array<AnyObject>
+                    
+                    let numberOfSeasonsFromJsonData = listOfSeasonsFound.count
+                    
+                    // No results were found
+                    if numberOfSeasonsFromJsonData < 1 {
+                        
+                        showNoResultsFound(rowNumber: row)
+                        return
+                    }
+                    
+                    // Pass the list of seasons to the downstream ViewController
+                    dataToPass[0] = selectedShowTitle!
+                    dataToPass[1] = showDataDict["posterImageURL"] as! String
+                    dataToPass[2] = listOfSeasonsFound
+                    dataToPass[3] = showId
+                    
+                    // Close the search bar
+                    searchResultsController.isActive = false
+                    
+                    // Show the show's data
+                    performSegue(withIdentifier: "showOnlineEpisodes", sender: self)
+                    
+                } catch let error as NSError {
+                    
+                    showErrorMessage(title: "Error in JSON Data Serialization!", message: "Problem Description: \(error.localizedDescription)")
+                    return
+                }
+                
+            } else {
+                showErrorMessage(title: "Error in retrieving JSON data!", message: "Problem Description: \(jsonError!.localizedDescription)")
+            }
+        }
         
     }
     
@@ -668,4 +816,25 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         return holidays[row]
     }
+    
+    /**
+     * -------------------------
+     * MARK: - Prepare for segue
+     * -------------------------
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showLocalEpisodes" {
+            
+            // Pass the data to the downstream ViewController
+            let episodesViewController: EpisodesViewController = segue.destination as! EpisodesViewController
+            episodesViewController.dataPassed = dataToPass
+        } else if segue.identifier == "showOnlineEpisodes" {
+            
+            // Pass the data to the downstream ViewController
+            let onlineEpisodesViewController: OnlineEpisodesViewController = segue.destination as! OnlineEpisodesViewController
+            onlineEpisodesViewController.dataPassed = dataToPass
+        }
+    }
+
 }

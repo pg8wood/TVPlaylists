@@ -10,6 +10,7 @@ import UIKit
 
 class EpisodeTableViewCell: UITableViewCell {
 
+    @IBOutlet var episodeTitleLabel: UILabel!
     @IBOutlet var episodeTextView: UITextView!
     @IBOutlet var episodeRatingLabel: UILabel!
     

@@ -181,18 +181,27 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Frg-iX-MjL">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Frg-iX-MjL">
                                                     <rect key="frame" x="8" y="0.0" width="70" height="99"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="Ofo-OA-Q5H"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uz0-qg-wgj">
-                                                    <rect key="frame" x="86" y="39" width="222" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uz0-qg-wgj">
+                                                    <rect key="frame" x="86" y="39.5" width="256" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Frg-iX-MjL" firstAttribute="leading" secondItem="okh-Q9-iPg" secondAttribute="leading" constant="8" id="1K8-aM-yuc"/>
+                                                <constraint firstItem="Frg-iX-MjL" firstAttribute="top" secondItem="okh-Q9-iPg" secondAttribute="top" id="b7j-SI-FNZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="uz0-qg-wgj" secondAttribute="trailing" id="pgO-kJ-QaP"/>
+                                                <constraint firstItem="uz0-qg-wgj" firstAttribute="centerY" secondItem="okh-Q9-iPg" secondAttribute="centerY" id="r6B-mZ-WnY"/>
+                                                <constraint firstAttribute="bottom" secondItem="Frg-iX-MjL" secondAttribute="bottom" id="uA8-es-LxO"/>
+                                                <constraint firstItem="uz0-qg-wgj" firstAttribute="leading" secondItem="Frg-iX-MjL" secondAttribute="trailing" constant="8" id="ug3-Dl-zeA"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="posterImageView" destination="Frg-iX-MjL" id="l4O-AU-EZk"/>
@@ -216,13 +225,15 @@
                     </view>
                     <connections>
                         <outlet property="resultsTableView" destination="TYB-8m-6hq" id="qgw-cs-97R"/>
+                        <segue destination="VMS-Uf-CVJ" kind="show" identifier="showOnlineEpisodes" id="AmN-bH-emz"/>
+                        <segue destination="gzn-iE-6QA" kind="show" identifier="showLocalEpisodes" id="Dhb-BG-Mv7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6TP-Zg-NY5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2116" y="416.94152923538235"/>
+            <point key="canvasLocation" x="2310" y="-751"/>
         </scene>
-        <!--Playlist Name - Show Title-->
+        <!--Episodes-->
         <scene sceneID="sdh-sV-wZZ">
             <objects>
                 <viewController id="gzn-iE-6QA" customClass="EpisodesViewController" customModule="TVPlaylists" customModuleProvider="target" sceneMemberID="viewController">
@@ -234,8 +245,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mwH-xf-Epz">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="How I Met Your Mother" translatesAutoresizingMaskIntoConstraints="NO" id="mwH-xf-Epz">
                                 <rect key="frame" x="112" y="72" width="150" height="198"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="Pp9-ZE-eYl"/>
+                                    <constraint firstAttribute="height" constant="198" id="qpJ-dc-UX3"/>
+                                </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="148" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="hbO-eb-Wf5">
                                 <rect key="frame" x="16" y="277" width="343" height="370"/>
@@ -245,54 +260,73 @@
                                 </constraints>
                                 <color key="sectionIndexBackgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="episodeCell" rowHeight="150" id="Spn-TZ-q3y" customClass="EpisodeTableViewCell" customModule="TVPlaylists" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="343" height="150"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="seasonCell" rowHeight="70" id="Spn-TZ-q3y">
+                                        <rect key="frame" x="0.0" y="56" width="343" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Spn-TZ-q3y" id="jVR-4W-hvm">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="149"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="69"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="episodeCell" rowHeight="200" id="Yb9-nb-8Ip" customClass="EpisodeTableViewCell" customModule="TVPlaylists" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="126" width="343" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yb9-nb-8Ip" id="cJu-4f-OXw">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="199"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOc-y5-9ka">
-                                                    <rect key="frame" x="8" y="0.0" width="327" height="83.5"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oyd-lv-sbL">
+                                                    <rect key="frame" x="8" y="37" width="327" height="94.5"/>
                                                     <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                                     <string key="text">Ted almost ruins Christmas for everyone when, still carrying around anger toward Lily, he calls her a horribly disgusting name. Robin tends to Barney while he has a cold.</string>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="Mqo-Ax-1vC">
-                                                    <rect key="frame" x="8" y="91.5" width="30" height="30"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="ie8-RY-Xoz">
+                                                    <rect key="frame" x="8" y="141.5" width="30" height="30"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="jHk-zP-23W"/>
-                                                        <constraint firstAttribute="height" constant="30" id="zNo-bO-oPb"/>
+                                                        <constraint firstAttribute="height" constant="30" id="IwN-uC-sc0"/>
+                                                        <constraint firstAttribute="width" constant="30" id="tKU-i0-nUn"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4pC-wl-b8b">
-                                                    <rect key="frame" x="46" y="91.5" width="69" height="30"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OZf-aQ-W2n">
+                                                    <rect key="frame" x="46" y="140" width="289" height="32"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="69" id="9pV-Fc-4hp"/>
+                                                        <constraint firstAttribute="width" constant="289" id="XZh-yu-xhh"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How Lily Stole Christmas" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3RI-Qb-rzL">
+                                                    <rect key="frame" x="8" y="8" width="335" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="qOc-y5-9ka" firstAttribute="leading" secondItem="Mqo-Ax-1vC" secondAttribute="leading" id="7Nf-ak-Or1"/>
-                                                <constraint firstItem="Mqo-Ax-1vC" firstAttribute="top" secondItem="qOc-y5-9ka" secondAttribute="bottom" constant="8" symbolic="YES" id="A2t-nd-fEk"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Mqo-Ax-1vC" secondAttribute="bottom" constant="20" id="Bja-93-gWJ"/>
-                                                <constraint firstItem="4pC-wl-b8b" firstAttribute="leading" secondItem="Mqo-Ax-1vC" secondAttribute="trailing" constant="8" symbolic="YES" id="GYQ-oa-39X"/>
-                                                <constraint firstItem="Mqo-Ax-1vC" firstAttribute="top" secondItem="4pC-wl-b8b" secondAttribute="top" id="OwA-BY-mP1"/>
-                                                <constraint firstItem="qOc-y5-9ka" firstAttribute="leading" secondItem="jVR-4W-hvm" secondAttribute="leadingMargin" id="PWz-Ir-gsg"/>
-                                                <constraint firstItem="qOc-y5-9ka" firstAttribute="trailing" secondItem="jVR-4W-hvm" secondAttribute="trailingMargin" id="cFh-UE-Z3X"/>
-                                                <constraint firstItem="qOc-y5-9ka" firstAttribute="top" secondItem="jVR-4W-hvm" secondAttribute="top" id="ctO-iW-ad8"/>
-                                                <constraint firstItem="Mqo-Ax-1vC" firstAttribute="bottom" secondItem="4pC-wl-b8b" secondAttribute="bottom" id="hYL-Lm-x13"/>
+                                                <constraint firstItem="3RI-Qb-rzL" firstAttribute="top" secondItem="cJu-4f-OXw" secondAttribute="top" constant="8" id="6jY-uP-b43"/>
+                                                <constraint firstItem="OZf-aQ-W2n" firstAttribute="top" secondItem="Oyd-lv-sbL" secondAttribute="bottom" constant="8.5" id="A4l-wX-Hzj"/>
+                                                <constraint firstItem="OZf-aQ-W2n" firstAttribute="leading" secondItem="ie8-RY-Xoz" secondAttribute="trailing" constant="8" id="D2O-jO-2Xm"/>
+                                                <constraint firstItem="Oyd-lv-sbL" firstAttribute="top" secondItem="3RI-Qb-rzL" secondAttribute="bottom" constant="8" id="Eb4-Eu-uDi"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="OZf-aQ-W2n" secondAttribute="trailing" id="Kap-6Y-2jL"/>
+                                                <constraint firstItem="Oyd-lv-sbL" firstAttribute="trailing" secondItem="cJu-4f-OXw" secondAttribute="trailingMargin" id="L4d-qX-InX"/>
+                                                <constraint firstAttribute="trailing" secondItem="3RI-Qb-rzL" secondAttribute="trailing" id="P8m-Jq-9XE"/>
+                                                <constraint firstItem="ie8-RY-Xoz" firstAttribute="leading" secondItem="cJu-4f-OXw" secondAttribute="leadingMargin" id="UVV-iP-cPQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ie8-RY-Xoz" secondAttribute="bottom" constant="19.5" id="dH5-hl-Ppa"/>
+                                                <constraint firstItem="Oyd-lv-sbL" firstAttribute="leading" secondItem="cJu-4f-OXw" secondAttribute="leadingMargin" id="eRA-v8-uE3"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="OZf-aQ-W2n" secondAttribute="bottom" constant="19.5" id="iGt-bc-Puk"/>
+                                                <constraint firstItem="3RI-Qb-rzL" firstAttribute="leading" secondItem="cJu-4f-OXw" secondAttribute="leading" constant="8" id="u14-9P-GI0"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <outlet property="episodeRatingLabel" destination="4pC-wl-b8b" id="kTJ-Jw-tSO"/>
-                                            <outlet property="episodeTextView" destination="qOc-y5-9ka" id="ac0-YG-1dw"/>
+                                            <outlet property="episodeRatingLabel" destination="OZf-aQ-W2n" id="oQR-wK-UtZ"/>
+                                            <outlet property="episodeTextView" destination="Oyd-lv-sbL" id="Lx0-Uc-pea"/>
+                                            <outlet property="episodeTitleLabel" destination="3RI-Qb-rzL" id="c0j-Ov-wIb"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -304,16 +338,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="top" secondItem="mwH-xf-Epz" secondAttribute="bottom" constant="7" id="5zF-DY-cLL"/>
-                            <constraint firstAttribute="bottom" secondItem="hbO-eb-Wf5" secondAttribute="bottom" constant="20" symbolic="YES" id="CQZ-pI-Zhb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="mwH-xf-Epz" secondAttribute="trailing" constant="97" id="Dgy-Kp-kzm"/>
-                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="centerX" secondItem="mwH-xf-Epz" secondAttribute="centerX" id="Igi-fi-h77"/>
-                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="leading" secondItem="UvW-My-eVA" secondAttribute="leadingMargin" id="gOj-u1-amV"/>
-                            <constraint firstItem="mwH-xf-Epz" firstAttribute="leading" secondItem="UvW-My-eVA" secondAttribute="leadingMargin" constant="96" id="vQl-cc-7Zx"/>
-                            <constraint firstItem="mwH-xf-Epz" firstAttribute="top" secondItem="fo6-N7-gxs" secondAttribute="bottom" constant="8" id="yMQ-4c-Bbq"/>
+                            <constraint firstItem="mwH-xf-Epz" firstAttribute="leading" secondItem="UvW-My-eVA" secondAttribute="leadingMargin" constant="96" id="29h-7u-W32"/>
+                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="trailing" secondItem="UvW-My-eVA" secondAttribute="trailingMargin" id="5m5-oh-Hx9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mwH-xf-Epz" secondAttribute="trailing" constant="97" id="Frp-PR-Hi1"/>
+                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="leading" secondItem="UvW-My-eVA" secondAttribute="leadingMargin" id="ME0-mt-9uP"/>
+                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="top" secondItem="mwH-xf-Epz" secondAttribute="bottom" constant="7" id="Qk4-Sk-58r"/>
+                            <constraint firstItem="U4s-Et-7qs" firstAttribute="top" secondItem="hbO-eb-Wf5" secondAttribute="bottom" constant="20" id="fRU-ch-Hug"/>
+                            <constraint firstItem="mwH-xf-Epz" firstAttribute="top" secondItem="fo6-N7-gxs" secondAttribute="bottom" constant="8" id="q2a-N5-0TF"/>
+                            <constraint firstItem="hbO-eb-Wf5" firstAttribute="top" secondItem="mwH-xf-Epz" secondAttribute="bottom" constant="7" id="voF-eH-5ym"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Playlist Name - Show Title" id="cE9-ez-xdP"/>
+                    <navigationItem key="navigationItem" title="Episodes" id="cE9-ez-xdP"/>
                     <connections>
                         <outlet property="episodesTableView" destination="hbO-eb-Wf5" id="9PM-bX-fXr"/>
                         <outlet property="posterImageView" destination="mwH-xf-Epz" id="mLF-Yn-Lg8"/>
@@ -321,7 +356,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVN-Dk-W2i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2133.5999999999999" y="-261.31934032983509"/>
+            <point key="canvasLocation" x="2310" y="143"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ngu-WN-RCY">
@@ -341,8 +376,138 @@
             </objects>
             <point key="canvasLocation" x="80.799999999999997" y="142.57871064467767"/>
         </scene>
+        <!--Online Episodes-->
+        <scene sceneID="a6l-RT-TEE">
+            <objects>
+                <viewController id="VMS-Uf-CVJ" customClass="OnlineEpisodesViewController" customModule="TVPlaylists" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HP1-iy-QsF"/>
+                        <viewControllerLayoutGuide type="bottom" id="SRa-U6-6bf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zI0-ha-HG1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="How I Met Your Mother" translatesAutoresizingMaskIntoConstraints="NO" id="A9q-Rm-OMc">
+                                <rect key="frame" x="112" y="72" width="150" height="198"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="198" id="oYS-qu-Ga2"/>
+                                    <constraint firstAttribute="width" constant="150" id="rxQ-Oy-jUc"/>
+                                </constraints>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="148" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="eT3-4P-Jyr">
+                                <rect key="frame" x="16" y="277" width="343" height="370"/>
+                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="370" id="y4n-Ur-oC9"/>
+                                </constraints>
+                                <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="seasonCell" rowHeight="70" id="4Ei-nS-Dxd">
+                                        <rect key="frame" x="0.0" y="55.5" width="343" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Ei-nS-Dxd" id="Adz-gx-Iu3">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="69"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="episodeCell" rowHeight="200" id="UVj-7R-aww" customClass="EpisodeTableViewCell" customModule="TVPlaylists" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="125.5" width="343" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UVj-7R-aww" id="ukV-Wg-BXr">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="199"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jI-DE-BrW">
+                                                    <rect key="frame" x="8" y="37" width="327" height="95"/>
+                                                    <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <string key="text">Ted almost ruins Christmas for everyone when, still carrying around anger toward Lily, he calls her a horribly disgusting name. Robin tends to Barney while he has a cold.</string>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="DGL-8a-RdN">
+                                                    <rect key="frame" x="8" y="142" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="WM4-GI-Vvu"/>
+                                                        <constraint firstAttribute="height" constant="30" id="ii1-UI-hAi"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hEE-Sf-iTj">
+                                                    <rect key="frame" x="46" y="140" width="289" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="289" id="h6R-ET-5GT"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How Lily Stole Christmas" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kwx-cd-Tff">
+                                                    <rect key="frame" x="8" y="8" width="335" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3jI-DE-BrW" firstAttribute="leading" secondItem="ukV-Wg-BXr" secondAttribute="leadingMargin" id="3uf-lE-WcI"/>
+                                                <constraint firstItem="Kwx-cd-Tff" firstAttribute="leading" secondItem="ukV-Wg-BXr" secondAttribute="leading" constant="8" id="HSy-2n-lTf"/>
+                                                <constraint firstItem="Kwx-cd-Tff" firstAttribute="top" secondItem="ukV-Wg-BXr" secondAttribute="top" constant="8" id="IG1-To-lS5"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="DGL-8a-RdN" secondAttribute="bottom" constant="19.5" id="euf-xI-wv4"/>
+                                                <constraint firstItem="3jI-DE-BrW" firstAttribute="top" secondItem="Kwx-cd-Tff" secondAttribute="bottom" constant="8" id="ilR-Wf-Ed2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hEE-Sf-iTj" secondAttribute="trailing" id="jje-eq-0va"/>
+                                                <constraint firstItem="3jI-DE-BrW" firstAttribute="trailing" secondItem="ukV-Wg-BXr" secondAttribute="trailingMargin" id="mbj-Xx-4Qw"/>
+                                                <constraint firstItem="hEE-Sf-iTj" firstAttribute="top" secondItem="3jI-DE-BrW" secondAttribute="bottom" constant="8.5" id="rKp-Bk-zDZ"/>
+                                                <constraint firstItem="DGL-8a-RdN" firstAttribute="leading" secondItem="ukV-Wg-BXr" secondAttribute="leadingMargin" id="rxv-Gn-ksc"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="hEE-Sf-iTj" secondAttribute="bottom" constant="19.5" id="ubU-ZZ-fc3"/>
+                                                <constraint firstAttribute="trailing" secondItem="Kwx-cd-Tff" secondAttribute="trailing" id="wbN-TR-jVK"/>
+                                                <constraint firstItem="hEE-Sf-iTj" firstAttribute="leading" secondItem="DGL-8a-RdN" secondAttribute="trailing" constant="8" id="zmY-bF-wxd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="episodeRatingLabel" destination="hEE-Sf-iTj" id="4m8-Bn-VlO"/>
+                                            <outlet property="episodeTextView" destination="3jI-DE-BrW" id="Pm4-7p-hVe"/>
+                                            <outlet property="episodeTitleLabel" destination="Kwx-cd-Tff" id="jek-7i-5Pf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="VMS-Uf-CVJ" id="YfX-Dj-RNi"/>
+                                    <outlet property="delegate" destination="VMS-Uf-CVJ" id="ujy-at-viT"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="A9q-Rm-OMc" firstAttribute="leading" secondItem="zI0-ha-HG1" secondAttribute="leadingMargin" constant="96" id="0xt-mb-B0D"/>
+                            <constraint firstItem="A9q-Rm-OMc" firstAttribute="top" secondItem="HP1-iy-QsF" secondAttribute="bottom" constant="8" id="4Aj-6v-wHv"/>
+                            <constraint firstItem="eT3-4P-Jyr" firstAttribute="top" secondItem="A9q-Rm-OMc" secondAttribute="bottom" constant="7" id="5dt-Ov-oyG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="A9q-Rm-OMc" secondAttribute="trailing" constant="97" id="EXL-xy-hWJ"/>
+                            <constraint firstItem="SRa-U6-6bf" firstAttribute="top" secondItem="eT3-4P-Jyr" secondAttribute="bottom" constant="20" id="Ekp-uB-GhW"/>
+                            <constraint firstItem="eT3-4P-Jyr" firstAttribute="trailing" secondItem="zI0-ha-HG1" secondAttribute="trailingMargin" id="XEc-Pg-QOn"/>
+                            <constraint firstItem="eT3-4P-Jyr" firstAttribute="top" secondItem="A9q-Rm-OMc" secondAttribute="bottom" constant="7" id="naf-E4-8Nq"/>
+                            <constraint firstItem="eT3-4P-Jyr" firstAttribute="leading" secondItem="zI0-ha-HG1" secondAttribute="leadingMargin" id="pjA-nP-hkI"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Online Episodes" id="uyD-aE-b0M"/>
+                    <connections>
+                        <outlet property="episodesTableView" destination="eT3-4P-Jyr" id="2SF-0U-Rh8"/>
+                        <outlet property="posterImageView" destination="A9q-Rm-OMc" id="VPc-XH-5Lo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0lO-np-ubL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3415" y="-752"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="How I Met Your Mother" width="600" height="900"/>
         <image name="star" width="512" height="512"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Dhb-BG-Mv7"/>
+    </inferredMetricsTieBreakers>
 </document>
