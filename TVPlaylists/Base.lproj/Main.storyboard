@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -54,11 +55,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Playlists" id="xFI-LN-acd">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Fdu-36-dnw">
-                            <connections>
-                                <action selector="searchButtonTapped:" destination="9Zl-Ss-JCr" id="yuN-hi-hwo"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="search" id="Fdu-36-dnw">
+                                <connections>
+                                    <action selector="searchButtonTapped:" destination="9Zl-Ss-JCr" id="yuN-hi-hwo"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="action" id="SrG-xf-RaB">
+                                <connections>
+                                    <action selector="shareButtonTapped:" destination="9Zl-Ss-JCr" id="mk1-uD-Ypa"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="mediaTableView" destination="0i0-vF-ClG" id="DmK-bq-LOt"/>

@@ -395,6 +395,72 @@ class MyMediaTableViewController: UITableViewController {
     }
     
     /*
+     ----------------------------------
+     MARK: - Share Action Button Tapped
+     ----------------------------------
+     */
+    @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
+        
+        // Ask the user which playlist they would like to share
+        
+        // Create an alert controller
+        let alertController = UIAlertController(title: "Share Playlsit", message: "Which playlist would you like to share?", preferredStyle: UIAlertControllerStyle.alert)
+        
+        for playlistName in playlists {
+            alertController.addAction(UIAlertAction(title: playlistName, style: UIAlertActionStyle.default, handler: sharePlaylist))
+        }
+        
+        // Present the alert controller to the user
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    // Opens a PopOverPresentationController so the user may share the playlist with a service of their choice
+    func sharePlaylist(alert: UIAlertAction!) {
+        
+        // Get the playlist to share
+        let playlistName = alert.title!
+        var playlistString = "Playlist: " + playlistName + "\n"
+        
+        // Get info about the playlist chosen 
+        let playlistToShare: NSMutableDictionary = applicationDelegate.dict_PlaylistName_MediaName[playlistName] as! NSMutableDictionary
+        let showsInPlaylist: [String] = playlistToShare.allKeys as! [String]
+        
+        // Create a String representation of the playlist
+        for i in 0 ..< showsInPlaylist.count {
+            
+            playlistString.append("\n\t" + showsInPlaylist[i])
+            
+            let showSeasons: NSMutableDictionary = playlistToShare[showsInPlaylist[i]] as! NSMutableDictionary
+            var savedSeasons = [String]()
+            savedSeasons = showSeasons.allKeys as! [String]
+            savedSeasons.sort { $0 < $1 }
+            
+            for j in 0 ..< savedSeasons.count {
+                
+                playlistString.append("\n\t\t Season " + savedSeasons[j])
+                let episodesInSeason: [Any] = showSeasons[savedSeasons[j]] as! [Any]
+                
+                for k in 0 ..< episodesInSeason.count {
+                    
+                    let episodeName = (episodesInSeason[k] as! [Any])[0]
+                    playlistString.append("\n\t\t\t" + (episodeName as! String))
+                }
+            }
+            
+            playlistString.append("\n")
+        }
+        
+        let dataToShare: [String] = [playlistString]
+        
+        let activityViewController: UIActivityViewController = UIActivityViewController.init(activityItems: dataToShare, applicationActivities: nil)
+        activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToFacebook]
+        
+        //activityViewController.popoverPresentationController?.barButtonItem = sender
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+    /*
      ----------------------------
      MARK: - Show Warning Message
      ----------------------------
