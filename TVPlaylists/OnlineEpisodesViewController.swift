@@ -256,9 +256,29 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             
             if episodeData.count >= 2 {
                 
+                // Get a list of the actors in the episode
+                var actors: String = "\n\nGuest Stars: \n"
+                let actorsInEpisodeArray: [Any] = episodeData[4] as! [Any]
+                
+                for actorObject in actorsInEpisodeArray {
+                    let actorName = (actorObject as! Dictionary<String, Any>)["name"] as! String
+                    actors.append("\(actorName), ")
+                }
+    
+                var descriptionText: String
+                
+                if actors != "\n\nGuest Stars: \n" {
+                    descriptionText = (episodeData[1] as? String)! + actors.trimmingCharacters(in: CharacterSet.init(charactersIn: ", "))
+                } else {
+                    descriptionText = episodeData[1] as! String
+                }
+                
                 thisCell.episodeTitleLabel.text = episodeData[0] as? String   // title
-                thisCell.episodeTextView.text = episodeData[1] as? String     // description
+                thisCell.episodeTextView.text = descriptionText     // description
                 thisCell.episodeRatingLabel.text = episodeData[2] as? String  // rating
+                                  // guest stars
+                
+                
                 
                 // Add an add button to the cell
                 let addButton = UIButton(type: .contactAdd)
@@ -384,12 +404,12 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         present(alertController, animated: true, completion: nil)
     }
     
-    
+    // Save the episode to the dictionary. 
     func saveEpisode(alert: UIAlertAction!) {
         
         // Get the episode data to add
         let buttonCellIndex = episodesTableView.indexPathForRow(at: addButtonPosition)
-        let episodeData = tableViewList[buttonCellIndex!.row] as! [String]
+        var episodeData = tableViewList[buttonCellIndex!.row] as! [Any]
         
         // Get the name of the playlist
         let playlistName = alert.title!
@@ -408,7 +428,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             let newShowDictionary: NSMutableDictionary = playlistDictionary.value(forKey: showName) as! NSMutableDictionary
             
             // Add the episode data to the dictionary.
-            let seasonNumber = episodeData[3]
+            let seasonNumber = episodeData[3] as! String
             newShowDictionary.setValue([episodeData], forKey: seasonNumber)
             
             // Save the show's image
@@ -418,6 +438,8 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             let writePath = documentDirectoryPath + "/\(showName)"
             let imageToSave = UIImagePNGRepresentation(posterImageView.image!)
             fileManager.createFile(atPath: writePath, contents: imageToSave, attributes: nil)
+            
+            showErrorMessage(title: "Add Successful!", message: "Successfully added the episode to the chosen playlist.")
         } else {
             
             // Show already exists: add the episode
@@ -425,14 +447,40 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             let seasonData = playlistDictionary[showName] as! NSMutableDictionary
             
             // Episodes already exist in the season: append the new episode
-            if let episodesInSeason = seasonData[seasonNumber] as? [[String]] {
+            if let episodesInSeason = seasonData[seasonNumber] as? [[Any]] {
                 
                 var episodes = episodesInSeason
-                episodes.append(episodeData)
+                var shouldAdd: Bool = true
+            
+                // Check if episodes already contains the chosen episode
+                for i in 0 ..< episodes.count {
+                    
+                    let episodeName = episodes[i][0] as! String
+                    let newEpisodeName = episodeData[0] as! String
+                    
+                    if episodeName == newEpisodeName {
+                        shouldAdd = false
+                        break
+                    }
+                }
+                
+                // Only add the episode if it is not already present
+                if shouldAdd {
+                    episodes.append(episodeData)
+                    seasonData[seasonNumber] = episodes
+                    
+                    showErrorMessage(title: "Add Successful!", message: "Successfully added the episode to the chosen playlist.")
+                    
+                } else {
+                        showErrorMessage(title: "Add Failed", message: "The chosen episode is already present in the selected playlist.")
+                }
+          
             } else {
                 
                 // No episodes are in the season
-                seasonData.setValue([[episodeData]], forKey: seasonNumber)
+                seasonData.setValue([episodeData], forKey: seasonNumber as! String)
+                
+                showErrorMessage(title: "Add Successful!", message: "Successfully added the episode to the chosen playlist.")
             }
         }
         

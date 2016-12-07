@@ -20,15 +20,15 @@ class SearchFilterTableViewCell: UITableViewCell {
     var tableView = UITableView()
     
     // Boolean determining if this cell is selected
-    var filtersSelected = false
+    var filtersSelected = true
     
     @IBAction func showCollapseButtonTapped(_ sender: UIButton) {
         
         // Display the arrow to show that the filter cell can be expanded or collpased
         if filtersSelected {
-            showCollapseButton.setImage(UIImage(named: "downArrow"), for: UIControlState())
-        } else {
             showCollapseButton.setImage(UIImage(named: "upArrow"), for: UIControlState())
+        } else {
+            showCollapseButton.setImage(UIImage(named: "downArrowBlack"), for: UIControlState())
         }
         
         // Negate the state of the filtersSelected boolean to indicate that the state has changed

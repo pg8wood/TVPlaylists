@@ -609,7 +609,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if arrayOfShowDictionaries.count == 0 {
                 
                 if searchResultsController.isActive {
-                    thisCell.titleLabel!.text = "Tap 'Search' to search the web"
+                    thisCell.titleLabel!.text = "Hit Enter on your keyboard to search the web"
                     
                 } else {
                     thisCell.titleLabel!.text = ""
@@ -873,15 +873,22 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return holidays.count
     }
     
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        
+        let strTitle = holidays[row]
+        let attString = NSAttributedString(string: strTitle, attributes: [NSForegroundColorAttributeName : UIColor.red])
+        return attString
+    }
+    
     /*
      --------------------------------------------
      MARK: - UIPickerViewDelegate Protocol Method
      --------------------------------------------
      */
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        return holidays[row]
-    }
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        
+//        return holidays[row]
+//    }
     
     // Record the chosen holiday
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

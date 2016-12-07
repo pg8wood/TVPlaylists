@@ -322,6 +322,15 @@ class MyMediaTableViewController: UITableViewController {
         }
     }
     
+    // Disable swipe to delete unless the user is in Edit mode 
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if tableView.isEditing {
+            return .delete
+        }
+        
+        return .none
+    }
+    
     
     /**
      * MARK: - Load image from Documents directory

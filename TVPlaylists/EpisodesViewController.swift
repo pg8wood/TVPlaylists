@@ -1,4 +1,4 @@
-//
+ //
 //  EpisodesViewController.swift
 //  TVPlaylists
 //
@@ -59,6 +59,8 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
         episodesTableView.estimatedRowHeight = 150
         episodesTableView.rowHeight = UITableViewAutomaticDimension
         
+        seasons.sort { $0 < $1}
+        
         // Initially display seasons only
         tableViewList = seasons
     }
@@ -105,8 +107,7 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
             
             // Display an arrow to indicate the cell has children
             
-            // TODO this image looks like poop
-            cell.accessoryView = UIImageView(image: UIImage(named: "downArrowBlack"))
+            cell.accessoryView = UIImageView(image: UIImage(named: "downArrowWhite"))
             
         } else { // Object is an array containing show data
             
@@ -114,11 +115,29 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
             let thisCell = cell as! EpisodeTableViewCell
             
             // Set up the cell's data
-            let episodeData = tableViewList[rowNumber] as! [String]
+            let episodeData = tableViewList[rowNumber] as! [Any]
             
-            thisCell.episodeTitleLabel.text = episodeData[0]    // title
-            thisCell.episodeTextView.text = episodeData[1]      // description
-            thisCell.episodeRatingLabel.text = episodeData[2]   // rating
+            // Get a list of the actors in the episode
+            var actors: String = "\n\nGuest Stars: \n"
+            
+            if episodeData.count >= 5 {
+                let actorsInEpisodeArray: [Any] = episodeData[4] as! [Any]
+                
+                for actorObject in actorsInEpisodeArray {
+                    let actorName = (actorObject as! Dictionary<String, Any>)["name"] as! String
+                    actors.append("\(actorName), ")
+                }
+                
+                let descriptionText = (episodeData[1] as? String)! + actors.trimmingCharacters(in: CharacterSet.init(charactersIn: ", "))
+                thisCell.episodeTextView.text = descriptionText    // description
+            }
+                
+            else {
+                thisCell.episodeTextView.text = episodeData[1] as? String // description
+            }
+            
+            thisCell.episodeTitleLabel.text = episodeData[0] as? String  // title
+            thisCell.episodeRatingLabel.text = episodeData[2] as? String   // rating
             
         }
         
@@ -138,7 +157,7 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
             if rowNumber == tableViewList.count - 1 {
                 
                 // Expand the row
-                let episodesInSeason: [[String]] = showData[nameOfSelectedRow] as! [[String]]
+                let episodesInSeason: [[Any]] = showData[nameOfSelectedRow] as! [[Any]]
                 
                 // Insert the String array episode data into the tableViewList
                 for i in 0..<episodesInSeason.count {
@@ -150,7 +169,7 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
                 // The row below the selected season is also a season, implying that the selected row is not expanded
                 
                 // Expand the row
-                let episodesInSeason: [[String]] = showData[nameOfSelectedRow] as! [[String]]
+                let episodesInSeason: [[Any]] = showData[nameOfSelectedRow] as! [[Any]]
                 
                 // Insert the String array episode data into the tableViewList
                 for i in 0..<episodesInSeason.count {
@@ -161,7 +180,7 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
             } else { // Shrink the row
                 
                 // As long as the next row is not a season number, delete the row from the table view list
-                let nameOfNextRow: String? = tableViewList[rowNumber + 1] as? String
+                var nameOfNextRow: String? = tableViewList[rowNumber + 1] as? String
                 
                 while nameOfNextRow == nil {
                     
@@ -171,6 +190,8 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
                     if rowNumber + 1 == tableViewList.count {
                         break
                     }
+                    
+                    nameOfNextRow = tableViewList[rowNumber + 1] as? String
                 }
             }
         }
