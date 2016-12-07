@@ -80,7 +80,7 @@
                         <viewControllerLayoutGuide type="top" id="WqQ-kA-Shb"/>
                         <viewControllerLayoutGuide type="bottom" id="vz2-Hy-KXj"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="TOs-T9-Fl8">
+                    <view key="view" contentMode="scaleToFill" id="TOs-T9-Fl8" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -106,8 +106,11 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="COd-1m-6ru" id="dVm-cv-ZSA"/>
+                                                    </connections>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Actor(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RL-2Z-ace">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guest Stars" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8RL-2Z-ace">
                                                     <rect key="frame" x="17" y="124" width="351" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -124,6 +127,9 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="COd-1m-6ru" id="4a5-Je-INa"/>
+                                                    </connections>
                                                 </textField>
                                                 <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wrQ-RW-0je">
                                                     <rect key="frame" x="18" y="207" width="342" height="104"/>
@@ -223,6 +229,9 @@
                             <constraint firstItem="TYB-8m-6hq" firstAttribute="leading" secondItem="TOs-T9-Fl8" secondAttribute="leading" id="cMr-78-IPu"/>
                             <constraint firstItem="TYB-8m-6hq" firstAttribute="top" secondItem="WqQ-kA-Shb" secondAttribute="bottom" id="txt-Fj-qD1"/>
                         </constraints>
+                        <connections>
+                            <action selector="userTappedBackgroundWithSender:" destination="COd-1m-6ru" eventType="touchDown" id="kpi-c7-m5W"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="resultsTableView" destination="TYB-8m-6hq" id="qgw-cs-97R"/>
@@ -571,6 +580,6 @@
         <image name="star" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vaU-wg-gph"/>
+        <segue reference="Dhb-BG-Mv7"/>
     </inferredMetricsTieBreakers>
 </document>

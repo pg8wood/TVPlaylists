@@ -21,6 +21,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
     // dataPassed[3] = showId
     var dataPassed = [Any]()
     var filtersPassed: [String] = ["", "", ""]
+    var filtersWerePassed: Bool = false
     
     // Create and intialize fields
     var playListName: String = ""
@@ -28,9 +29,13 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
     var showName: String = ""
     var showData: NSMutableDictionary = NSMutableDictionary()
     var seasonData: Array<AnyObject> = []
+    var allEpisodeData = [[[Any]]]()
     var seasons = [String]()
     var showId: String = "-1"
-    //var filtered = true;
+    
+    // Loading icon and overlay
+    var activityView: UIActivityIndicatorView? = nil
+    var overlayView: UIView? = nil
     
     // The position of the add button that will be pressed
     var addButtonPosition: CGPoint = CGPoint.zero
@@ -80,7 +85,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         } else {
             posterImageView.image = UIImage(named: "noPosterImage.png")
         }
-    
+        
         // Get the list of seasons
         for i in 0..<seasonData.count {
             
@@ -93,48 +98,106 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         episodesTableView.rowHeight = UITableViewAutomaticDimension
         
         
-        // Feasable. Might want to say "searching..." or "filtering..."
-//        for i in 0..<seasonData.count {
-//            getDataFromServer(keyName: seasons[i])
-//        }
-        
-        
-        // --------------------------
+        // -------------------------
+        // Get the passed in filters
+        // -------------------------
         let episodeNameFilter = filtersPassed[0]
         let actorsFilter = filtersPassed[1]
         let holidayFilter = filtersPassed[2]
+        filtersWerePassed = (episodeNameFilter != "" || actorsFilter != "" || holidayFilter != "None")
         
-        let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        activityView.center = self.view.center
-        activityView.startAnimating()
+        // Show that the view is curently loading
+        createLoadingAnimation()
+    }
+    
+    // After the view has appeared, start loading the data
+    override func viewDidAppear(_ animated: Bool) {
         
-        self.view.addSubview(activityView)
-        
-        if episodeNameFilter != "" {
+        if filtersWerePassed {
+            // Get the show's episodes from the server
+            for i in 0..<seasonData.count {
+                let episodeData = getDataFromServer(keyName: seasons[i])
+                allEpisodeData.append(episodeData)
+            }
             
-            // Filter the show's episode by filters
+            let episodeNameFilter = filtersPassed[0]
+            let actorsFilter = filtersPassed[1]
+            let holidayFilter = filtersPassed[2]
             
             
+            // Only get episodes containing the selected name
+            for i in (0 ..< allEpisodeData.count).reversed() {
+                
+                // Search each episode
+                for j in (0 ..< allEpisodeData[i].count).reversed() {
+                    
+                    let episodeData = allEpisodeData[i][j]
+                    let episodeName = episodeData[0] as! String
+                    let episodeDescription = episodeData[1] as! String
+                    let actorsInEpisode: [Any] = episodeData[4] as! [Any]
+                    
+                    // Filter episodes by name
+                    if episodeNameFilter != "" && !(episodeName.lowercased().contains(episodeNameFilter.lowercased())) {
+                        allEpisodeData[i].remove(at: j)
+                    } else if actorsFilter != "" {
+                        var foundActorInEpisode: Bool = false
+                        
+                        // Check the actors 
+                        for i in 0..<actorsInEpisode.count {
+                            let actorData = actorsInEpisode[i] as! Dictionary<String, Any>
+                            let actorName = actorData["name"] as! String
+                            
+                            if actorName.contains(actorsFilter) {
+                                foundActorInEpisode = true
+                                break
+                            }
+                        }
+                        
+                        if !foundActorInEpisode {
+                            allEpisodeData[i].remove(at: j)
+                        }
+                    }
+                    else if holidayFilter != "None" && !(episodeDescription.lowercased().contains(holidayFilter.lowercased())) {
+                        // Filter episodes by holiday episodes
+                        allEpisodeData[i].remove(at: j)
+                    }
+                    
+                    // Remove the season from the list of seasons if it is empty
+                    if allEpisodeData[i].count == 0 {
+                        allEpisodeData.remove(at: i)
+                        break
+                    }
+                    
+                }
+            }
         }
         
+        if filtersWerePassed {
+            seasons.removeAll(keepingCapacity: false)
             
-            
-            // First check the holiday filter since it eliminates the most results
-//            if holidayFilter != "None" {
-//                
-//                
-//                
-//                
-//                // http://imdbapi.poromenos.org/js/?name=once+upon+a+time&year=2011
-//            }
-        
-        
-        
-        
-        // ------------------------------
+            for n in 0..<allEpisodeData.count {
+                
+                // Get the season number for the first episode in each season found
+                let seasonNumberString = allEpisodeData[n][0][3] as! String
+                
+                if !seasons.contains(seasonNumberString){
+                    seasons.append(seasonNumberString)
+                }
+            }
+        }
         
         // Initially display seasons only
         tableViewList = seasons
+        
+        // Data retrieved; hide the loading animation
+        hideLoadingAnimation()
+        
+        // If no results were found, tell the user.
+        if tableViewList.count == 0 {
+            showErrorMessage(title: "Search Failed", message: "No results were found. Please try searching with different filters.")
+        }
+        
+        episodesTableView.reloadData()
     }
     
     
@@ -164,7 +227,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         let rowNumber = (indexPath as NSIndexPath).row
         
         var cell: UITableViewCell
-        
+     
         // If the object is a String, it is a season number.
         if let rowName = tableViewList[rowNumber] as? String {
             
@@ -178,9 +241,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             cell.selectionStyle = .none
             
             // Display an arrow to indicate the cell has children
-            
-            // TODO this image looks like poop
-            cell.accessoryView = UIImageView(image: UIImage(named: "downArrowBlack"))
+            cell.accessoryView = UIImageView(image: UIImage(named: "downArrowWhite"))
             
         } else { // Object is an array containing show data
             
@@ -191,18 +252,29 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             cell.selectionStyle = .none
             
             // Set up the cell's data
-            let episodeData = tableViewList[rowNumber] as! [String]
+            let episodeData = tableViewList[rowNumber] as! [Any]
             
-            thisCell.episodeTitleLabel.text = episodeData[0]    // title
-            thisCell.episodeTextView.text = episodeData[1]      // description
-            thisCell.episodeRatingLabel.text = episodeData[2]   // rating
-            
-            // Add an add button to the cell
-            let addButton = UIButton(type: .contactAdd)
-            addButton.isUserInteractionEnabled = true
-            addButton.addTarget(self, action: #selector(OnlineEpisodesViewController.addButtonPressed(_:)), for: .touchUpInside)
-            cell.accessoryView = addButton
+            if episodeData.count >= 2 {
+                
+                thisCell.episodeTitleLabel.text = episodeData[0] as? String   // title
+                thisCell.episodeTextView.text = episodeData[1] as? String     // description
+                thisCell.episodeRatingLabel.text = episodeData[2] as? String  // rating
+                
+                // Add an add button to the cell
+                let addButton = UIButton(type: .contactAdd)
+                addButton.isUserInteractionEnabled = true
+                addButton.addTarget(self, action: #selector(OnlineEpisodesViewController.addButtonPressed(_:)), for: .touchUpInside)
+                cell.accessoryView = addButton
+            } else {
+                
+                // No data was found
+                thisCell.episodeTitleLabel.text = "No episode data found"   // title
+                thisCell.episodeTextView.text = ""    // description
+                thisCell.episodeRatingLabel.text = "Not rated"   // rating
+                cell.accessoryView = .none
+            }
         }
+        
         
         return cell
     }
@@ -224,12 +296,15 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                 // Expand the row
                 // --------------
                 
-                //getDataFromServer(keyName: nameOfSelectedRow)
-                
-                //let episodesInSeason: [[String]] = showData[nameOfSelectedRow] as! [[String]]
-                
-                let episodesInSeason = getDataFromServer(keyName: nameOfSelectedRow)
-
+                var episodesInSeason: [[Any]]
+        
+                if filtersWerePassed {
+                    episodesInSeason = allEpisodeData[rowNumber]
+                } else {
+                    
+                    // Get data on-the-fly to save time
+                    episodesInSeason = getDataFromServer(keyName: nameOfSelectedRow)
+                }
                 
                 // Insert the String array episode data into the tableViewList
                 for i in 0..<episodesInSeason.count {
@@ -242,7 +317,15 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                 // The row below the selected season is also a season, implying that the selected row is not expanded
                 
                 // Expand the row
-                let episodesInSeason = getDataFromServer(keyName: nameOfSelectedRow)
+                var episodesInSeason: [[Any]]
+                
+                if filtersWerePassed {
+                    episodesInSeason = allEpisodeData[rowNumber]
+                } else {
+                    
+                    // Get data on-the-fly to save time
+                    episodesInSeason = getDataFromServer(keyName: nameOfSelectedRow)
+                }
                 
                 // Insert the String array episode data into the tableViewList
                 for i in 0..<episodesInSeason.count {
@@ -328,7 +411,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             let seasonNumber = episodeData[3]
             newShowDictionary.setValue([episodeData], forKey: seasonNumber)
             
-            // Save the show's image 
+            // Save the show's image
             let fileManager = FileManager.default
             let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
             let documentDirectoryPath = paths[0] as String
@@ -343,7 +426,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             
             // Episodes already exist in the season: append the new episode
             if let episodesInSeason = seasonData[seasonNumber] as? [[String]] {
-        
+                
                 var episodes = episodesInSeason
                 episodes.append(episodeData)
             } else {
@@ -352,7 +435,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                 seasonData.setValue([[episodeData]], forKey: seasonNumber)
             }
         }
-
+        
     }
     
     
@@ -360,7 +443,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
     //                                Get data from server
     // ------------------------------------------------------------------------------
     
-    func getDataFromServer(keyName: String) -> [[String]] {
+    func getDataFromServer(keyName: String) -> [[Any]] {
         
         let apiURL = "http://api.themoviedb.org/3/tv/\(showId)/season/\(keyName)?api_key=\(tmdbApiKey)&language=en-US"
         
@@ -395,7 +478,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                 let numberOfEpisodesFromJsonData = listOfEpisodesFound.count
                 
                 // Add data to the show's dictionary stored locally
-                var showDataArray = showData[keyName] as? [[String]]
+                var showDataArray = showData[keyName] as? [[Any]]
                 
                 if numberOfEpisodesFromJsonData > 0 {
                     // Store the episode data
@@ -405,6 +488,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                         let episodeName = episodeData["name"] as! String
                         let episodeDescription = episodeData["overview"] as! String
                         let episodeSeason = "\(episodeData["season_number"] as! Int)"
+                        let actorsInEpisode = episodeData["guest_stars"] as! [AnyObject]
                         
                         // Store the values, or a default value if not found
                         let stringDescription = episodeDescription == "" ? "No description available" : episodeDescription
@@ -414,18 +498,19 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                         
                         // Array already found and exists
                         if showDataArray != nil {
-                            showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason])
+                            showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason, actorsInEpisode])
                         } else {
                             // Create the array
                             showData.setValue([[String]](), forKey: keyName)
-                            showDataArray = showData[keyName] as? [[String]]
-                            showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason])
+                            showDataArray = showData[keyName] as? [[Any]]
+                            showDataArray!.append([episodeName, stringDescription, stringRating, episodeSeason, actorsInEpisode])
                         }
                     }
+                    
+                    return showDataArray!
                 }
                 
-                return showDataArray!
-                
+                return [[]]
                 
             } catch let error as NSError {
                 
@@ -442,29 +527,59 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         //                                End get data from server
         // ----------------------------------------------------------------------------------
     }
-
-/*
- -----------------------------
- MARK: - Display Error Message
- -----------------------------
- */
-
-func showErrorMessage(title errorTitle: String, message errorMessage: String) {
+    
+    // -----------------------
+    // Show loading animation
+    // ----------------------
+    func createLoadingAnimation() {
+        
+        // Set up the activityView
+        activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityView!.center = self.view.center
+        activityView!.startAnimating()
+        
+        // Set up screen dimmer
+        overlayView = UIView.init(frame: UIScreen.main.bounds)
+        overlayView!.layer.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5).cgColor
+        
+        // Add both views
+        self.view.addSubview(overlayView!)
+        self.view.addSubview(activityView!)
+    }
+    
+    // ----------------------
+    // Hide loading animation
+    // ---------------------
+    func hideLoadingAnimation() {
+        
+        activityView?.removeFromSuperview()
+        overlayView?.removeFromSuperview()
+    }
+    
+    
     
     /*
-     Create a UIAlertController object; dress it up with title, message, and preferred style;
-     and store its object reference into local constant alertController
+     -----------------------------
+     MARK: - Display Error Message
+     -----------------------------
      */
-    let alertController = UIAlertController(title: "\(errorTitle)",
-        message: "\(errorMessage)",
-        preferredStyle: UIAlertControllerStyle.alert)
     
-    // Create a UIAlertAction object and add it to the alert controller
-    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    func showErrorMessage(title errorTitle: String, message errorMessage: String) {
+        
+        /*
+         Create a UIAlertController object; dress it up with title, message, and preferred style;
+         and store its object reference into local constant alertController
+         */
+        let alertController = UIAlertController(title: "\(errorTitle)",
+            message: "\(errorMessage)",
+            preferredStyle: UIAlertControllerStyle.alert)
+        
+        // Create a UIAlertAction object and add it to the alert controller
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        // Present the alert controller
+        present(alertController, animated: true, completion: nil)
+    }
     
-    // Present the alert controller
-    present(alertController, animated: true, completion: nil)
-}
-
-
+    
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,  UISearchResultsUpdating, UISearchBarDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,  UISearchResultsUpdating, UISearchBarDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // Object references to objects created at design time on the storyboard 
     @IBOutlet var resultsTableView: UITableView!
@@ -42,7 +42,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // String array containing the holidays the user can search for
     var holidays: [String] = ["None", "St. Patrick's Day", "Halloween", "Thanksgiving", "Christmas"]
     var chosenHoliday: String = "None"
-
     
     /*
      * -----------------------
@@ -114,7 +113,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // Set the SearchBar's delegate to be this ViewController
         searchBar.delegate = self
+        
+        // Close the keyboard if the user taps anywhere outside a text field.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
+    
+    
     
     /*
      -----------------------------------------------
@@ -479,6 +485,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
      MARK: - UITableViewDataSource Protocol Methods
      ----------------------------------------------
      */
+    
     //----------------------------------------
     // Return Number of Sections in Table View
     //----------------------------------------
@@ -785,9 +792,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     dataToPass[3] = showId
                     
                     // Pass the list of filters to the downstream ViewController
-                    let filterCell = tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath) as! SearchFilterTableViewCell
-                    filtersToPass[0] = filterCell.episodeNameTextField.text!
-                    filtersToPass[1] = filterCell.actorsTextField.text!
                     filtersToPass[2] = chosenHoliday
                     
                     
@@ -810,6 +814,49 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
     }
+    
+    /*
+     ------------------------------
+     MARK: - User Tapped Background
+     ------------------------------
+     */
+    @IBAction func userTappedBackground(sender: AnyObject) {
+        
+        view.endEditing(true)
+    }
+    
+    // Calls this function when the tap is recognized.
+    func dismissKeyboard() {
+        // Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    
+    /*
+     --------------------------------------------
+     MARK: - UITextFieldDelegate Protocol methods
+     --------------------------------------------
+     */
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
+    /*
+     * This method is called when the user:
+     * (1) selects another UI object after editing in a text field
+     * (2) taps Return on the keyboard
+     */
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+         let filterCell = resultsTableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath) as! SearchFilterTableViewCell
+        
+        // Store the text entered
+        filtersToPass[0] = filterCell.episodeNameTextField.text!
+        filtersToPass[1] = filterCell.actorsTextField.text!
+    }
+
     
     
     /**
