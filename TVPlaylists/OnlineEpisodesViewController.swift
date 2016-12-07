@@ -20,6 +20,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
     // dataPassed[2] = dictionary of seasons
     // dataPassed[3] = showId
     var dataPassed = [Any]()
+    var filtersPassed: [String] = ["", "", ""]
     
     // Create and intialize fields
     var playListName: String = ""
@@ -29,7 +30,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
     var seasonData: Array<AnyObject> = []
     var seasons = [String]()
     var showId: String = "-1"
-    var filtered = true;
+    //var filtered = true;
     
     // The position of the add button that will be pressed
     var addButtonPosition: CGPoint = CGPoint.zero
@@ -92,13 +93,31 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         episodesTableView.rowHeight = UITableViewAutomaticDimension
         
         
-        // --------------------------
-        let episodeNameFilter = ""
-        let actorsFilter = ""
-        let holidayFilter = "Christmas"
+        // Feasable. Might want to say "searching..." or "filtering..."
+//        for i in 0..<seasonData.count {
+//            getDataFromServer(keyName: seasons[i])
+//        }
         
-        // TODO pass filters and check them idk
-        if filtered {
+        
+        // --------------------------
+        let episodeNameFilter = filtersPassed[0]
+        let actorsFilter = filtersPassed[1]
+        let holidayFilter = filtersPassed[2]
+        
+        let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityView.center = self.view.center
+        activityView.startAnimating()
+        
+        self.view.addSubview(activityView)
+        
+        if episodeNameFilter != "" {
+            
+            // Filter the show's episode by filters
+            
+            
+        }
+        
+            
             
             // First check the holiday filter since it eliminates the most results
 //            if holidayFilter != "None" {
@@ -108,7 +127,7 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
 //                
 //                // http://imdbapi.poromenos.org/js/?name=once+upon+a+time&year=2011
 //            }
-        }
+        
         
         
         

@@ -34,12 +34,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Data to be passed to a downstream view controller
     var dataToPass: [Any] = [0, 0, 0, 0]
+    var filtersToPass: [String] = ["", "", ""]
     
     // My TMDB API Key
     let tmdbApiKey: String = "68060180bf3305a501c36e9a7ca5f03c"
     
     // String array containing the holidays the user can search for
     var holidays: [String] = ["None", "St. Patrick's Day", "Halloween", "Thanksgiving", "Christmas"]
+    var chosenHoliday: String = "None"
 
     
     /*
@@ -782,6 +784,14 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     dataToPass[2] = listOfSeasonsFound
                     dataToPass[3] = showId
                     
+                    // Pass the list of filters to the downstream ViewController
+                    let filterCell = tableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath) as! SearchFilterTableViewCell
+                    filtersToPass[0] = filterCell.episodeNameTextField.text!
+                    filtersToPass[1] = filterCell.actorsTextField.text!
+                    filtersToPass[2] = chosenHoliday
+                    
+                    
+                    
                     // Close the search bar
                     searchResultsController.isActive = false
                     
@@ -826,6 +836,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return holidays[row]
     }
     
+    // Record the chosen holiday
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        chosenHoliday = holidays[row]
+    }
+    
     /**
      * -------------------------
      * MARK: - Prepare for segue
@@ -843,6 +859,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             // Pass the data to the downstream ViewController
             let onlineEpisodesViewController: OnlineEpisodesViewController = segue.destination as! OnlineEpisodesViewController
             onlineEpisodesViewController.dataPassed = dataToPass
+            onlineEpisodesViewController.filtersPassed = filtersToPass
         }
     }
 
