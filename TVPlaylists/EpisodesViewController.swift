@@ -217,6 +217,4 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
             return UIImage(named: "noPosterImage")!
         }
     }
-
-
 }

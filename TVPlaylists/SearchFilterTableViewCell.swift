@@ -38,5 +38,4 @@ class SearchFilterTableViewCell: UITableViewCell {
         tableView.beginUpdates()
         tableView.endUpdates()
     }
-
 }

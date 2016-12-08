@@ -184,11 +184,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         var jsonError: NSError?
         
-        // TODO: if slow, try using a NSURL session if this yields poor performance.
-        // To obtain the best performance:
-        // (1) Download data in multiple threads including background downloads using multithreading and Grand Central Dispatch.
-        // (2) Store each image on the device after first download to prevent downloading it repeatedly.
-        
         // Download the JSON via HTTP in a single thread.
         let jsonData: Data?
         do {
@@ -228,12 +223,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 var posterImageURL: String?
                 var showTitle: String?
                 var showId: String
-                var releaseDate: String?
-                var mpaaRating: String?
-                var imdbRating: String?
-                var runtime: String?
-                var actors: String?
-                
                 
                 for j in 0..<numberOfShowsToDisplay {
                     
@@ -309,92 +298,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     } else {
                         showId = "-1"
                     }
-
-                    
-                    
-                    
-                    /*
-                     =============================================
-                     |  Obtain Other Data from OMDb: STEP 2 & 3  |
-                     =============================================
-                     */
-                    
-                    //let showDBIdFromJson = showDictionary["id"] as! Int
-                    
-                    /*let imdbShowID: String? = imdbId(showDatabaseID: showDBIdFromJson)
-                     
-                     if let imdbShowIDobtained = imdbShowID {
-                     
-                     if imdbShowIDobtained.isEmpty {
-                     // Skip this show due to insufficient data
-                     break
-                     }
-                     
-                     let omdbShow = omdbShowDictionary(imdbDatabaseID: imdbShowIDobtained) as Dictionary<String, AnyObject>
-                     
-                     //------------
-                     // MPAA Rating
-                     //------------
-                     
-                     let mpaaRatingFromJson: String? = omdbshow["Rated"] as! String?
-                     
-                     if let mpaaRatingObtained = mpaaRatingFromJson {
-                     
-                     if !mpaaRatingObtained.isEmpty {
-                     
-                     mpaaRating = mpaaRatingObtained
-                     
-                     } else {
-                     mpaaRating = "MPAA rating is unavailable!"
-                     }
-                     
-                     } else {
-                     mpaaRating = "MPAA rating is unavailable!"
-                     }
-                     
-                     //------------
-                     // IMDb Rating
-                     //------------
-                     
-                     let imdbRatingFromJson: String? = omdbshow["imdbRating"] as! String?
-                     
-                     if let imdbRatingObtained = imdbRatingFromJson {
-                     
-                     if !imdbRatingObtained.isEmpty {
-                     
-                     imdbRating = imdbRatingObtained
-                     
-                     } else {
-                     imdbRating = "IMDb rating is unavailable!"
-                     }
-                     
-                     } else {
-                     imdbRating = "IMDb rating is unavailable!"
-                     }
-                     
-                     //-------------
-                     // Show Actors
-                     //-------------
-                     
-                     let actorsFromJson: String? = omdbShow["Actors"] as! String?
-                     
-                     if let actorsObtained = actorsFromJson {
-                     
-                     if !actorsObtained.isEmpty {
-                     
-                     actors = actorsObtained
-                     
-                     } else {
-                     actors = "Actors are unavailable!"
-                     }
-                     
-                     } else {
-                     actors = "Actors are unavailable!"
-                     }
-                     */
-                    
-                    
-                    
                     
                     //----------------------------------------------------------------------
                     // Create a new show dictionary with the following KEY : VALUE pairings
@@ -403,20 +306,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     let newShowDictionary = ["posterImageURL": posterImageURL,
                                              "showTitle": showTitle,
                                              "id": "\(showId)"]
-                    /*,
-                     "mpaaRating": mpaaRating,
-                     "imdbRating": imdbRating,
-                     "actors": actors] */
                     
                     // Add the new show dictionary to the array of show dictionaries
                     self.arrayOfShowDictionaries.append(newShowDictionary as AnyObject)
-                    
-                    /* } else {
-                     // Skip this show due to insufficient data
-                     break
-                     }
-                     
-                     }*/
                 }
                 
             } catch let error as NSError {
@@ -696,7 +588,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             var selectedPlaylist = localPlaylists[section]
             
             // Get the show data
-            var selectedShowData = NSMutableDictionary()
+            let selectedShowData = NSMutableDictionary()
             
             // Search for the selected show
             for i in 0..<localPlaylists.count {
@@ -732,9 +624,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             // An online show was selected
             
-            // Since a URL cannot have spaces, replace each space in the movie name to search with +.
-            //let selectedShowTitle = (tableView.cellForRow(at: indexPath) as! SearchResultTableViewCell).titleLabel!.text?.replacingOccurrences(of: " ", with: "+", options: [], range: nil)
-            
             // Obtain the Dictionary containing the data about the show at rowNumber
             let showDataDict = arrayOfShowDictionaries[row] as! Dictionary<String, AnyObject>
             let showId: String = showDataDict["id"]! as! String
@@ -747,11 +636,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let url = URL(string: apiURL)
             
             var jsonError: NSError?
-            
-            // TODO: if slow, try using a NSURL session if this yields poor performance.
-            // To obtain the best performance:
-            // (1) Download data in multiple threads including background downloads using multithreading and Grand Central Dispatch.
-            // (2) Store each image on the device after first download to prevent downloading it repeatedly.
             
             // Download the JSON via HTTP in a single thread.
             let jsonData: Data?
@@ -794,8 +678,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     // Pass the list of filters to the downstream ViewController
                     filtersToPass[2] = chosenHoliday
                     
-                    
-                    
                     // Close the search bar
                     searchResultsController.isActive = false
                     
@@ -812,7 +694,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 showErrorMessage(title: "Error in retrieving JSON data!", message: "Problem Description: \(jsonError!.localizedDescription)")
             }
         }
-        
     }
     
     /*
@@ -825,7 +706,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         view.endEditing(true)
     }
     
-    // Calls this function when the tap is recognized.
+    // Call this function when the tap is recognized.
     func dismissKeyboard() {
         // Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
@@ -850,14 +731,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
      */
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-         let filterCell = resultsTableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath) as! SearchFilterTableViewCell
+        let filterCell = resultsTableView.cellForRow(at: NSIndexPath(row: 0, section: 0) as IndexPath) as! SearchFilterTableViewCell
         
         // Store the text entered
         filtersToPass[0] = filterCell.episodeNameTextField.text!
         filtersToPass[1] = filterCell.actorsTextField.text!
     }
-
-    
     
     /**
      * -----------------------------------------------
@@ -885,10 +764,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
      MARK: - UIPickerViewDelegate Protocol Method
      --------------------------------------------
      */
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        
-//        return holidays[row]
-//    }
     
     // Record the chosen holiday
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -916,5 +791,4 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             onlineEpisodesViewController.filtersPassed = filtersToPass
         }
     }
-
 }

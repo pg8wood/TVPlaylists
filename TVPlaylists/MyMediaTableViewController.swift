@@ -42,10 +42,7 @@ class MyMediaTableViewController: UITableViewController {
         
         let editButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(MyMediaTableViewController.editButtonTapped(_:)))
         self.navigationItem.leftBarButtonItem = editButton
-        
-        // Set up the Add button on the right of the navigation bar to call the addCity method when tapped
-        //        let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(MyMoviesTableViewController.addMovie(_:)))
-        //        self.navigationItem.rightBarButtonItem = addButton
+      
         
         // Get the playlists and store them in a String array
         playlists = applicationDelegate.dict_PlaylistName_MediaName.allKeys as! [String]
@@ -484,9 +481,6 @@ class MyMediaTableViewController: UITableViewController {
     
     // User tapped yes in alert handler
     func handleYesTap(alert: UIAlertAction!) {
-        
-        // Delete the entire playlist
-        let dataInPlaylist: NSMutableDictionary = applicationDelegate.dict_PlaylistName_MediaName[playlistToDelete]! as! NSMutableDictionary
         
         // Remove the entire playlist from the dictionary
         applicationDelegate.dict_PlaylistName_MediaName.removeObject(forKey: playlistToDelete)

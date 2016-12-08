@@ -276,9 +276,6 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                 thisCell.episodeTitleLabel.text = episodeData[0] as? String   // title
                 thisCell.episodeTextView.text = descriptionText     // description
                 thisCell.episodeRatingLabel.text = episodeData[2] as? String  // rating
-                                  // guest stars
-                
-                
                 
                 // Add an add button to the cell
                 let addButton = UIButton(type: .contactAdd)
@@ -294,7 +291,6 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
                 cell.accessoryView = .none
             }
         }
-        
         
         return cell
     }
@@ -399,7 +395,6 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
             alertController.addAction(UIAlertAction(title: playlistName, style: UIAlertActionStyle.default, handler: saveEpisode))
         }
         
-        
         // Present the alert controller by calling the present method
         present(alertController, animated: true, completion: nil)
     }
@@ -485,7 +480,6 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         }
         
     }
-    
     
     // ------------------------------------------------------------------------------
     //                                Get data from server
@@ -604,8 +598,6 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         overlayView?.removeFromSuperview()
     }
     
-    
-    
     /*
      -----------------------------
      MARK: - Display Error Message
@@ -628,6 +620,4 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         // Present the alert controller
         present(alertController, animated: true, completion: nil)
     }
-    
-    
 }

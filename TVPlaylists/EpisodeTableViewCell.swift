@@ -10,20 +10,9 @@ import UIKit
 
 class EpisodeTableViewCell: UITableViewCell {
 
+    // Object references to the objects created at design time on the StoryBoard
     @IBOutlet var episodeTitleLabel: UILabel!
     @IBOutlet var episodeTextView: UITextView!
     @IBOutlet var episodeRatingLabel: UILabel!
-    
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
 }
