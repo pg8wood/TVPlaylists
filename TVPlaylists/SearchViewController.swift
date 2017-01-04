@@ -79,7 +79,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
         
-        filtersSelected = true
+        //filtersSelected = true
         resultsTableView.reloadData()
     }
     
@@ -96,6 +96,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let searchBar = searchController.searchBar
         searchBar.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1) // color name: lead
         searchBar.tintColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1) // color name: lead
+        searchBar.barTintColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1) // color name: lead
         searchBar.sizeToFit()
         
         // Don't dim the background while searching
