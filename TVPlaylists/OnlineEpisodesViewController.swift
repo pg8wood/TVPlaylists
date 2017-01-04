@@ -391,9 +391,13 @@ class OnlineEpisodesViewController: UIViewController, UITableViewDataSource, UIT
         // Create an alert controller
         let alertController = UIAlertController(title: "Add to Playlist", message: "Choose a playlist to add this episode to.", preferredStyle: UIAlertControllerStyle.alert)
         
+        // Add an option for every playlist
         for playlistName in playlists {
             alertController.addAction(UIAlertAction(title: playlistName, style: UIAlertActionStyle.default, handler: saveEpisode))
         }
+        
+        // Add a cancel option
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         
         // Present the alert controller by calling the present method
         present(alertController, animated: true, completion: nil)

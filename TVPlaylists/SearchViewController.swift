@@ -79,9 +79,6 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
         
-        // Hide the first TableView section header
-        //resultsTableView.contentInset = UIEdgeInsetsMake(-1.0, 0.0, 0.0, 0.0);
-        
         filtersSelected = true
         resultsTableView.reloadData()
     }
@@ -97,6 +94,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self // Use the same tableView to display results
         let searchBar = searchController.searchBar
+        searchBar.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1) // color name: lead
+        searchBar.tintColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1) // color name: lead
         searchBar.sizeToFit()
         
         // Don't dim the background while searching
@@ -433,7 +432,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let sectionNumber = indexPath.section
         
         if rowNumber == 0 && sectionNumber == 0 {
-            // If the filters row is selected, expand it. Else, collapse it. 
+            // If the filters row is selected, expand it. Otherwise, collapse it.
             if filtersSelected {
                 filtersSelected = !filtersSelected
                 return 300
@@ -441,7 +440,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 filtersSelected = !filtersSelected
                 return 37
             }
-        } else {
+        } else { // All other cells are 100 points in height
             return 100
         }
     }
@@ -456,13 +455,22 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let rowNumber = indexPath.row
         let sectionNumber = indexPath.section
         
-        // The first row is the cell containing the search filters; other rows are reserved for results
+        // Section 0: search filters
+        // Section 1: local results
+        // Section 2: online results
         var cell: UITableViewCell
         if sectionNumber == 0 {
             
             cell = tableView.dequeueReusableCell(withIdentifier: "filterCell")!
+            let thisCell = cell as! SearchFilterTableViewCell
             
-            // Disable selection highlighting for the cells
+            // Color the placeholder text in both text fields
+            let episodePlaceholder: NSAttributedString = NSAttributedString(string: "Enter episode name", attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+            let actorsPlaceholder: NSAttributedString = NSAttributedString(string: "Ex: Jennifer Lawrence, Kevin Spacey", attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+            thisCell.episodeNameTextField.attributedPlaceholder = episodePlaceholder
+            thisCell.actorsTextField.attributedPlaceholder = actorsPlaceholder
+            
+            // Disable selection highlighting in the filter cell
             cell.selectionStyle = .none
             
             // Section 0, row 0 is reserved for the search filtering cell
@@ -484,10 +492,9 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let thisCell = cell as! SearchResultTableViewCell
             
             // Only display data while searching
-            if (searchResultsController.isActive) {
+            if searchResultsController.isActive {
                 
                 let result = localSearchResults[indexPath.row]
-                
                 thisCell.titleLabel!.text = result
                 cell.imageView?.image = UIImage(named: result)
             }
@@ -501,10 +508,12 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if arrayOfShowDictionaries.count == 0 {
                 
                 if searchResultsController.isActive {
-                    thisCell.titleLabel!.text = "Hit Enter on your keyboard to search the web"
+                    thisCell.titleLabel!.text = "Tap Search to search the web"
+                    thisCell.selectionStyle = .none
                     
                 } else {
                     thisCell.titleLabel!.text = ""
+                    thisCell.selectionStyle = .default
                 }
                 
                 // Clear out the cell
@@ -581,7 +590,16 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             return
         }
         
-        let selectedShowTitle = (tableView.cellForRow(at: indexPath) as! SearchResultTableViewCell).titleLabel!.text
+        let cell: SearchResultTableViewCell = tableView.cellForRow(at: indexPath) as! SearchResultTableViewCell
+        
+        let selectedShowTitle = cell.titleLabel!.text
+        
+        // Fail if the cell contains no show title
+        if selectedShowTitle == "" {
+            cell.selectionStyle = .none
+            //cell.selectable
+            return
+        }
         
         // If a local show was selected
         if section == 1 {
@@ -617,7 +635,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else if section == 2 {
             
             // Don't look up the empty cell
-            if selectedShowTitle == "Tap 'Search' to search the web" {
+            if selectedShowTitle == "Tap 'Search' to search the web" || arrayOfShowDictionaries.count == 0 {
                 
                 return
             }

@@ -58,7 +58,6 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
         // Format the cell
         episodesTableView.estimatedRowHeight = 150
         episodesTableView.rowHeight = UITableViewAutomaticDimension
-        
         seasons.sort { $0 < $1}
         
         // Initially display seasons only
@@ -106,13 +105,15 @@ class EpisodesViewController: UIViewController, UITableViewDataSource, UITableVi
             cell.selectionStyle = .none
             
             // Display an arrow to indicate the cell has children
-            
             cell.accessoryView = UIImageView(image: UIImage(named: "downArrowWhite"))
             
         } else { // Object is an array containing show data
-            
+        
             cell = tableView.dequeueReusableCell(withIdentifier: "episodeCell")!
             let thisCell = cell as! EpisodeTableViewCell
+            
+            // Show the delete button if this view was launched from an editing parent ViewController
+            //cell.isEditing = viewOpenedInEditMode
             
             // Set up the cell's data
             let episodeData = tableViewList[rowNumber] as! [Any]

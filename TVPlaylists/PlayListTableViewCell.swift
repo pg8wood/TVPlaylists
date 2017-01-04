@@ -12,5 +12,6 @@ class PlayListTableViewCell: UITableViewCell {
 
     // Object reference to the ScrollView on the StoryBoard 
     @IBOutlet var scrollMenu: UIScrollView!
+    @IBOutlet var errorLabel: UILabel!
 
 }

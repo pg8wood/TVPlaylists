@@ -92,6 +92,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B81A813A1DF9250C00E01352 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B84D397E1DE8CC9B0098F444 /* MyMediaTableViewController.swift */,
+				B88007CA1DF68D12001C7CF5 /* AddPlaylistViewController.swift */,
+				B88007BA1DF23455001C7CF5 /* EpisodesViewController.swift */,
+				B88007BE1DF37848001C7CF5 /* SearchViewController.swift */,
+				B88007C81DF62BAD001C7CF5 /* OnlineEpisodesViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B81A813B1DF9251D00E01352 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				B82A3BFA1DF20CE4002CCFE5 /* PlayListTableViewCell.swift */,
+				B88007BC1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift */,
+				B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */,
+				B88007C61DF56874001C7CF5 /* SearchResultTableViewCell.swift */,
+			);
+			name = TableViewCells;
+			sourceTree = "<group>";
+		};
 		B84D39441DE8CC6B0098F444 = {
 			isa = PBXGroup;
 			children = (
@@ -116,20 +139,12 @@
 			isa = PBXGroup;
 			children = (
 				B84D39501DE8CC6B0098F444 /* AppDelegate.swift */,
-				B84D397E1DE8CC9B0098F444 /* MyMediaTableViewController.swift */,
-				B82A3BFA1DF20CE4002CCFE5 /* PlayListTableViewCell.swift */,
-				B88007CA1DF68D12001C7CF5 /* AddPlaylistViewController.swift */,
-				B88007BA1DF23455001C7CF5 /* EpisodesViewController.swift */,
-				B88007BC1DF23DDC001C7CF5 /* EpisodeTableViewCell.swift */,
-				B88007BE1DF37848001C7CF5 /* SearchViewController.swift */,
-				B88007C01DF4C897001C7CF5 /* SearchFilterTableViewCell.swift */,
-				B88007C61DF56874001C7CF5 /* SearchResultTableViewCell.swift */,
-				B88007C81DF62BAD001C7CF5 /* OnlineEpisodesViewController.swift */,
+				B81A813A1DF9250C00E01352 /* ViewControllers */,
+				B81A813B1DF9251D00E01352 /* TableViewCells */,
 				B84D39541DE8CC6B0098F444 /* Main.storyboard */,
 				B84D39571DE8CC6B0098F444 /* Assets.xcassets */,
 				B84D39591DE8CC6B0098F444 /* LaunchScreen.storyboard */,
-				B84D395C1DE8CC6B0098F444 /* Info.plist */,
-				B84D39801DE8D6B50098F444 /* MyMedia.plist */,
+				B8E6080E1E1D8D6100D0ACF4 /* Plist Files */,
 			);
 			path = TVPlaylists;
 			sourceTree = "<group>";
@@ -150,6 +165,15 @@
 				B84D39721DE8CC6B0098F444 /* Info.plist */,
 			);
 			path = TVPlaylistsUITests;
+			sourceTree = "<group>";
+		};
+		B8E6080E1E1D8D6100D0ACF4 /* Plist Files */ = {
+			isa = PBXGroup;
+			children = (
+				B84D395C1DE8CC6B0098F444 /* Info.plist */,
+				B84D39801DE8D6B50098F444 /* MyMedia.plist */,
+			);
+			name = "Plist Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +246,11 @@
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = U3465V32BF;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					B84D39601DE8CC6B0098F444 = {
 						CreatedOnToolsVersion = 8.2;

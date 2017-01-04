@@ -24,8 +24,9 @@ class MyMediaTableViewController: UITableViewController {
     
     // A playlist up for deletion
     var playlistToDelete: String = ""
+    var showToDelete: String = ""
     
-    var dataToPass: [Any] = [0, 0, 0]
+    var dataToPass: [Any] = [0, 0, 0, 0]
     
     
     /*
@@ -71,7 +72,7 @@ class MyMediaTableViewController: UITableViewController {
     // Return Number of Sections in Table View
     //----------------------------------------
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return playlists.count
+        return playlists.count > 0 ? playlists.count : 1
     }
 
     //------------------------------------
@@ -88,6 +89,19 @@ class MyMediaTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlaylistCell", for: indexPath) as! PlayListTableViewCell
+        
+        // If no playlists were found, alert the user
+        if playlists.count == 0 {
+            cell.errorLabel!.text = "No playlists found! Tap 'Edit' and '+' to add a new playlist."
+            cell.errorLabel!.textColor = UIColor.white
+            
+            // Hide the scrollMenu and its subviews 
+            cell.scrollMenu.removeFromSuperview()
+            return cell
+        } else {
+            cell.errorLabel!.text! = ""
+        }
+        
         let scrollMenu = cell.scrollMenu!
         
         // Remove any preexisting buttons from the scrollview
@@ -224,11 +238,13 @@ class MyMediaTableViewController: UITableViewController {
     // Set the table view section header to be the country name
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String {
         
-        return playlists[section]
+        return playlists.count > 0 ? playlists[section] : ""
     }
     
     /**
+     * ---------------------------
      * MARK: - Show button pressed
+     * ---------------------------
      */
     func showButtonPressed(_ sender: UIButton) {
         
@@ -243,6 +259,8 @@ class MyMediaTableViewController: UITableViewController {
         let indexPath = mediaTableView.indexPath(for: buttonCell)
         let selectedSection = indexPath!.section
         let selectedPlaylist = playlists[selectedSection]
+        playlistToDelete = selectedPlaylist
+        showToDelete = selectedShowTitle!
         
         // Get the show data
         let selectedShowData = (applicationDelegate.dict_PlaylistName_MediaName[selectedPlaylist] as! NSMutableDictionary)[selectedShowTitle!]
@@ -254,8 +272,12 @@ class MyMediaTableViewController: UITableViewController {
         dataToPass[0] = selectedPlaylist
         dataToPass[1] = selectedShowTitle!
         dataToPass[2] = selectedShowData!
-
-        performSegue(withIdentifier: "showEpisodes", sender: self)
+        
+        if mediaTableView.isEditing {
+            showDeleteWarningMessage("Are you you would like to delete \(selectedShowTitle!) and all of its episodes?", type: "Show")
+        } else {
+            performSegue(withIdentifier: "showEpisodes", sender: self)
+        }
     }
     
     /**
@@ -270,6 +292,7 @@ class MyMediaTableViewController: UITableViewController {
      */
     func editButtonTapped(_ sender: UIBarButtonItem) {
         
+        
         // Change the search icon into a + icon to allow the user to add a new playlist
         let addButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(MyMediaTableViewController.addPlaylist(_:)))
         self.navigationItem.rightBarButtonItem = addButton
@@ -278,8 +301,11 @@ class MyMediaTableViewController: UITableViewController {
         let doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(MyMediaTableViewController.donebuttonTapped(_:)))
         self.navigationItem.leftBarButtonItem = doneButton
         
-        // Allow playlists to be delted
-        mediaTableView.isEditing = true
+        // Only allow the editing of cells if at least one playlist is displayed
+        if playlists.count > 0 {
+            // Allow playlists to be delted
+            mediaTableView.isEditing = true
+        }
     }
     
     /**
@@ -315,7 +341,7 @@ class MyMediaTableViewController: UITableViewController {
             // Obtain the playlist to be deleted
             playlistToDelete = playlists[(indexPath as NSIndexPath).section]
             
-            showDeleteWarningMessage("Warning: This will delete the entire playlist and its contents. Are you sure?")
+            showDeleteWarningMessage("Warning: This will delete the entire playlist and its contents. Are you sure?", type: "Playlist")
         }
     }
     
@@ -403,13 +429,16 @@ class MyMediaTableViewController: UITableViewController {
         // Create an alert controller
         let alertController = UIAlertController(title: "Share Playlsit", message: "Which playlist would you like to share?", preferredStyle: UIAlertControllerStyle.alert)
         
+        // Add an option for each playlist
         for playlistName in playlists {
             alertController.addAction(UIAlertAction(title: playlistName, style: UIAlertActionStyle.default, handler: sharePlaylist))
         }
         
+        // Add a cancel option
+        alertController.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        
         // Present the alert controller to the user
         self.present(alertController, animated: true, completion: nil)
-        
     }
     
     // Opens a PopOverPresentationController so the user may share the playlist with a service of their choice
@@ -462,7 +491,7 @@ class MyMediaTableViewController: UITableViewController {
      MARK: - Show Warning Message
      ----------------------------
      */
-    func showDeleteWarningMessage(_ message: String) {
+    func showDeleteWarningMessage(_ message: String, type: String) {
         
         /*
          Create a UIAlertController object; dress it up with title, message, and preferred style;
@@ -472,18 +501,35 @@ class MyMediaTableViewController: UITableViewController {
                                                 preferredStyle: UIAlertControllerStyle.alert)
         
         // Create a UIAlertAction object and add it to the alert controller
-        alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: handleYesTap))
+        if type == "Playlist" {
+            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: handlePlaylistYesTap))
+        } else if type == "Show" {
+            alertController.addAction(UIAlertAction(title: "Yes", style: .default, handler: handleShowYesTap))
+        }
         alertController.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
         
         // Present the alert controller by calling the present method
         present(alertController, animated: true, completion: nil)
     }
     
-    // User tapped yes in alert handler
-    func handleYesTap(alert: UIAlertAction!) {
+    // User tapped yes in alert handler when deleting a playlist
+    func handlePlaylistYesTap(alert: UIAlertAction!) {
         
         // Remove the entire playlist from the dictionary
         applicationDelegate.dict_PlaylistName_MediaName.removeObject(forKey: playlistToDelete)
+        
+        // Reload the data
+        playlists = applicationDelegate.dict_PlaylistName_MediaName.allKeys as! [String]
+        playlists.sort { $0 < $1 }
+        
+        mediaTableView.reloadData()
+    }
+    
+    // User tapped yes in alert handler when deleting a show
+    func handleShowYesTap(alert: UIAlertAction!) {
+        
+        // Remove the entire show from the dictionary
+        (applicationDelegate.dict_PlaylistName_MediaName[playlistToDelete] as! NSMutableDictionary).removeObject(forKey: showToDelete)
         
         // Reload the data
         playlists = applicationDelegate.dict_PlaylistName_MediaName.allKeys as! [String]

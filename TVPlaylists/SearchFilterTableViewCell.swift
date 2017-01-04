@@ -22,6 +22,7 @@ class SearchFilterTableViewCell: UITableViewCell {
     // Boolean determining if this cell is selected
     var filtersSelected = true
     
+    
     @IBAction func showCollapseButtonTapped(_ sender: UIButton) {
         
         // Display the arrow to show that the filter cell can be expanded or collpased
